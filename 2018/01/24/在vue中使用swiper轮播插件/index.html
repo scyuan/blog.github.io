@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="小前端，小码农">
 <meta property="og:description" content="1.安装swiper1234//npmnpm install vue-awesome-swiper --save//cnpmcnpm install vue-awesome-swiper --save 2.在main.js中引入swiper,然后全局注册12import VueAwesomeSwiper from &amp;apos;vue-awesome-swiper&amp;apos;Vue.use(VueA">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-24T05:32:13.000Z">
+<meta property="og:updated_time" content="2018-04-20T02:14:00.400Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在vue中使用swiper轮播插件">
 <meta name="twitter:description" content="1.安装swiper1234//npmnpm install vue-awesome-swiper --save//cnpmcnpm install vue-awesome-swiper --save 2.在main.js中引入swiper,然后全局注册12import VueAwesomeSwiper from &amp;apos;vue-awesome-swiper&amp;apos;Vue.use(VueA">
@@ -191,10 +191,20 @@
         </li>
       
         
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br />
             
             标签
           </a>
@@ -204,7 +214,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
             
             分类
           </a>
@@ -217,6 +227,16 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-项目">
+          <a href="/project/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            项目
           </a>
         </li>
       
@@ -258,7 +278,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="scyuan">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/61524193096_.pic.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -332,6 +352,7 @@
       
         <h6 id="1-安装swiper"><a href="#1-安装swiper" class="headerlink" title="1.安装swiper"></a>1.安装swiper</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//npm</span><br><span class="line">npm install vue-awesome-swiper --save</span><br><span class="line">//cnpm</span><br><span class="line">cnpm install vue-awesome-swiper --save</span><br></pre></td></tr></table></figure>
 <h6 id="2-在main-js中引入swiper-然后全局注册"><a href="#2-在main-js中引入swiper-然后全局注册" class="headerlink" title="2.在main.js中引入swiper,然后全局注册"></a>2.在main.js中引入swiper,然后全局注册</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import VueAwesomeSwiper from &apos;vue-awesome-swiper&apos;</span><br><span class="line">Vue.use(VueAwesomeSwiper)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h6 id="3-在组件中使用swiper"><a href="#3-在组件中使用swiper" class="headerlink" title="3.在组件中使用swiper"></a>3.在组件中使用swiper</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">//1.首先在swiper中引入组件</span><br><span class="line">import &#123;swiper,swiperSlide&#125; from &apos;vue-awesome-swiper&apos;</span><br><span class="line">//export defult</span><br><span class="line">export default&#123;</span><br><span class="line">    data:function()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            //swiper的配置，说是和官网的一样，我没去看，有空去对比一下</span><br><span class="line">            swiperOption: &#123;  </span><br><span class="line">                pagination: &apos;.swiper-pagination&apos;,  </span><br><span class="line">                slidesPerView: &apos;auto&apos;,  </span><br><span class="line">                centeredSlides: true,  </span><br><span class="line">                paginationClickable: true,</span><br><span class="line">                onSlideChangeEnd: swiper =&gt; &#123;  </span><br><span class="line">                    //这个位置放swiper的回调方法  </span><br><span class="line">                    this.page = swiper.realIndex+1;  </span><br><span class="line">                    this.index = swiper.realIndex;  </span><br><span class="line">                &#125;,  </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;,</span><br><span class="line">    components:&#123;</span><br><span class="line">        swiper,swiperSlide</span><br><span class="line">    &#125;,</span><br><span class="line">    //定义这个sweiper对象  </span><br><span class="line">    computed: &#123;  </span><br><span class="line">        swiper() &#123;  </span><br><span class="line">            return this.$refs.mySwiper.swiper;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;,  </span><br><span class="line">    mounted () &#123;  </span><br><span class="line">        //这边就可以使用swiper这个对象去使用swiper官网中的那些方法  </span><br><span class="line">        //this.swiper.slideTo(0, 0, false);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line">//2.html</span><br><span class="line">&lt;swiper :options=&quot;swiperOption&quot;  ref=&quot;mySwiper&quot;&gt;  </span><br><span class="line">    &lt;!-- 这部分放你要渲染的那些内容 --&gt;  </span><br><span class="line">    &lt;swiper-slide&gt; </span><br><span class="line">        &lt;img src=&quot;../assets/img/lunbo1.jpg&quot; width=&quot;100%&quot; alt=&quot;&quot;&gt;</span><br><span class="line">    &lt;/swiper-slide&gt;  </span><br><span class="line">    &lt;swiper-slide&gt; </span><br><span class="line">        &lt;img src=&quot;../assets/img/lunbo2.jpg&quot; width=&quot;100%&quot; alt=&quot;&quot;&gt;</span><br><span class="line">    &lt;/swiper-slide&gt;</span><br><span class="line">    &lt;swiper-slide&gt; </span><br><span class="line">        &lt;img src=&quot;../assets/img/lunbo3.jpg&quot; width=&quot;100%&quot; alt=&quot;&quot;&gt;</span><br><span class="line">    &lt;/swiper-slide&gt;</span><br><span class="line">    &lt;swiper-slide&gt; </span><br><span class="line">        &lt;img src=&quot;../assets/img/lunbo4.jpg&quot; width=&quot;100%&quot; alt=&quot;&quot;&gt;</span><br><span class="line">    &lt;/swiper-slide&gt;</span><br><span class="line">    &lt;!-- 这是轮播的小圆点 --&gt;  </span><br><span class="line">    &lt;div class=&quot;swiper-pagination&quot; slot=&quot;pagination&quot;&gt;&lt;/div&gt;  </span><br><span class="line">&lt;/swiper&gt;</span><br></pre></td></tr></table></figure>
 <h6 id="4-以为到这里是不是就觉得完了？"><a href="#4-以为到这里是不是就觉得完了？" class="headerlink" title="4.以为到这里是不是就觉得完了？"></a>4.以为到这里是不是就觉得完了？</h6><blockquote>
 <p>这个时候页面的swiper是没有样式的，所以还需要我们导入样式</p>
@@ -448,10 +469,14 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/61524193096_.pic.jpg"
+                alt="scyuan" />
+            
               <p class="site-author-name" itemprop="name">scyuan</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
-
+          <p>95后前端。总结、分享自己的生活和工作</p>
           <nav class="site-state motion-element">
 
             
@@ -482,6 +507,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/scyuan" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:644397334@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -533,6 +574,11 @@
 
   
 </div>
+
+
+
+
+  
 
 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
