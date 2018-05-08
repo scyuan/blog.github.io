@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="小前端，小码农">
 <meta property="og:description" content="写了一个简单的vue插件，严格来说，应该叫一个vue组件（只是将这个组件发布出来，我可能还不了解插件和组件的区别）。vue插件如何开发（我将在下一篇博客总结）。接下来说说如何发布一个插件到npm">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-08T03:18:16.982Z">
+<meta property="og:updated_time" content="2018-05-08T03:20:53.230Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="打包vue插件并发布到npm">
 <meta name="twitter:description" content="写了一个简单的vue插件，严格来说，应该叫一个vue组件（只是将这个组件发布出来，我可能还不了解插件和组件的区别）。vue插件如何开发（我将在下一篇博客总结）。接下来说说如何发布一个插件到npm">
@@ -315,7 +315,7 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2018-05-08T11:18:16+08:00" content="2018-05-08">
+              <time itemprop="dateUpdated" datetime="2018-05-08T11:20:53+08:00" content="2018-05-08">
                 2018-05-08
               </time>
             </span>
@@ -395,28 +395,13 @@
       
         <p>写了一个简单的vue插件，严格来说，应该叫一个vue组件（只是将这个组件发布出来，我可能还不了解插件和组件的区别）。vue插件如何开发（我将在下一篇博客总结）。接下来说说如何发布一个插件到npm</p>
 <a id="more"></a>
-<ol>
-<li>首先先加npm的仓库由淘宝镜像改为npm官方镜像</li>
-</ol>
-<p>如果你使用的是npm官方镜像，则不用管这一步。因为我一直使用的淘宝镜像，所以需要设置</p>
+<h4 id="1-首先先加npm的仓库由淘宝镜像改为npm官方镜像"><a href="#1-首先先加npm的仓库由淘宝镜像改为npm官方镜像" class="headerlink" title="1. 首先先加npm的仓库由淘宝镜像改为npm官方镜像"></a>1. 首先先加npm的仓库由淘宝镜像改为npm官方镜像</h4><p>如果你使用的是npm官方镜像，则不用管这一步。因为我一直使用的淘宝镜像，所以需要设置</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">npm config set registry http:<span class="comment">//registry.npmjs.org  // 非全局设置</span></span><br></pre></td></tr></table></figure>
 <p>如果想再设置为淘宝镜像</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">npm config set registry http:<span class="comment">//registry.npm.taobao.org  // 非全局设置</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>修改webpack.congig.js 部分配置</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">entry : <span class="string">'./src/lib/index.js'</span>,</span><br><span class="line">output: &#123;</span><br><span class="line">	path: path.resolve(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">	publicPath: <span class="string">'/dist/'</span>,</span><br><span class="line">	<span class="comment">// filename: 'build.js'</span></span><br><span class="line">	filename : <span class="string">'vue2-keyboard.js'</span>,</span><br><span class="line">	library: <span class="string">'Vue2Keyboard'</span>,  <span class="comment">// library指定的就是你使用require时的模块名，这里便是require("PayKeyboard")</span></span><br><span class="line">	libraryTarget: <span class="string">'umd'</span>, <span class="comment">//libraryTarget会生成不同umd的代码,可以只是commonjs标准的，也可以是指amd标准的，也可以只是通过script标签引入的。</span></span><br><span class="line">	umdNamedDefine: <span class="literal">true</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>如果要支持通过<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```JavaScript</span><br><span class="line">if (typeof window !== &apos;undefined&apos; &amp;&amp; window.Vue) &#123;</span><br><span class="line">    window.Vue.use(vueKeyboard);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</li>
-<li><p>注册npm</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm adduser </span><br><span class="line">Username: your name</span><br><span class="line">Password: your password</span><br><span class="line">Email: yourmail[@gmail](/user/gmail).com</span><br></pre></td></tr></table></figure>
-<ol>
-<li>发布npm，修改package.json文件，需要注意先去npm上搜说是否已经存在同名包，如果存在就修改包名字（同上面第2步）</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"name"</span>: <span class="string">"vue2-keyboard"</span>,</span><br><span class="line"><span class="string">"description"</span>: <span class="string">"A Vue.js project"</span>,</span><br><span class="line"><span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line"><span class="string">"author"</span>: <span class="string">"scyuan &lt;644397334@qq.com&gt;"</span>,</span><br><span class="line"><span class="string">"license"</span>: <span class="string">"MIT"</span>,</span><br><span class="line"><span class="string">"private"</span>: <span class="literal">false</span>,</span><br><span class="line"><span class="string">"main"</span>:<span class="string">"dist/vue2-keyboard.js"</span>,</span><br><span class="line"><span class="string">"repository"</span>: &#123;</span><br><span class="line">  <span class="string">"type"</span>: <span class="string">"git"</span>,</span><br><span class="line">  <span class="string">"url"</span>: <span class="string">"https://github.com/scyuan/vue2-keyboard.git"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="2-修改webpack-congig-js-部分配置"><a href="#2-修改webpack-congig-js-部分配置" class="headerlink" title="2. 修改webpack.congig.js 部分配置"></a>2. 修改webpack.congig.js 部分配置</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">entry : <span class="string">'./src/lib/index.js'</span>,</span><br><span class="line">output: &#123;</span><br><span class="line">	path: path.resolve(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">	publicPath: <span class="string">'/dist/'</span>,</span><br><span class="line">	<span class="comment">// filename: 'build.js'</span></span><br><span class="line">	filename : <span class="string">'vue2-keyboard.js'</span>,</span><br><span class="line">	library: <span class="string">'Vue2Keyboard'</span>,  <span class="comment">// library指定的就是你使用require时的模块名，这里便是require("PayKeyboard")</span></span><br><span class="line">	libraryTarget: <span class="string">'umd'</span>, <span class="comment">//libraryTarget会生成不同umd的代码,可以只是commonjs标准的，也可以是指amd标准的，也可以只是通过script标签引入的。</span></span><br><span class="line">	umdNamedDefine: <span class="literal">true</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="3-如果要支持通过"><a href="#3-如果要支持通过" class="headerlink" title="3. 如果要支持通过"></a>3. 如果要支持通过<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```JavaScript</span><br><span class="line">if (typeof window !== &apos;undefined&apos; &amp;&amp; window.Vue) &#123;</span><br><span class="line">    window.Vue.use(vueKeyboard);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h4><h4 id="4-注册npm"><a href="#4-注册npm" class="headerlink" title="4. 注册npm"></a>4. 注册npm</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm adduser </span><br><span class="line">Username: your name</span><br><span class="line">Password: your password</span><br><span class="line">Email: yourmail[@gmail](/user/gmail).com</span><br></pre></td></tr></table></figure>
+<h4 id="5-发布npm，修改package-json文件，需要注意先去npm上搜说是否已经存在同名包，如果存在就修改包名字（同上面第2步）"><a href="#5-发布npm，修改package-json文件，需要注意先去npm上搜说是否已经存在同名包，如果存在就修改包名字（同上面第2步）" class="headerlink" title="5. 发布npm，修改package.json文件，需要注意先去npm上搜说是否已经存在同名包，如果存在就修改包名字（同上面第2步）"></a>5. 发布npm，修改package.json文件，需要注意先去npm上搜说是否已经存在同名包，如果存在就修改包名字（同上面第2步）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"name"</span>: <span class="string">"vue2-keyboard"</span>,</span><br><span class="line"><span class="string">"description"</span>: <span class="string">"A Vue.js project"</span>,</span><br><span class="line"><span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line"><span class="string">"author"</span>: <span class="string">"scyuan &lt;644397334@qq.com&gt;"</span>,</span><br><span class="line"><span class="string">"license"</span>: <span class="string">"MIT"</span>,</span><br><span class="line"><span class="string">"private"</span>: <span class="literal">false</span>,</span><br><span class="line"><span class="string">"main"</span>:<span class="string">"dist/vue2-keyboard.js"</span>,</span><br><span class="line"><span class="string">"repository"</span>: &#123;</span><br><span class="line">  <span class="string">"type"</span>: <span class="string">"git"</span>,</span><br><span class="line">  <span class="string">"url"</span>: <span class="string">"https://github.com/scyuan/vue2-keyboard.git"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 <p>修改完之后</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm login</span><br><span class="line"></span><br><span class="line">npm publish</span><br></pre></td></tr></table></figure>
       
@@ -515,8 +500,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -596,6 +590,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-首先先加npm的仓库由淘宝镜像改为npm官方镜像"><span class="nav-number">1.</span> <span class="nav-text">1. 首先先加npm的仓库由淘宝镜像改为npm官方镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-修改webpack-congig-js-部分配置"><span class="nav-number">2.</span> <span class="nav-text">2. 修改webpack.congig.js 部分配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-如果要支持通过"><span class="nav-number">3.</span> <span class="nav-text">3. 如果要支持通过12345```JavaScriptif (typeof window !== &#39;undefined&#39; &amp;&amp; window.Vue) {    window.Vue.use(vueKeyboard);}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-注册npm"><span class="nav-number">4.</span> <span class="nav-text">4. 注册npm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-发布npm，修改package-json文件，需要注意先去npm上搜说是否已经存在同名包，如果存在就修改包名字（同上面第2步）"><span class="nav-number">5.</span> <span class="nav-text">5. 发布npm，修改package.json文件，需要注意先去npm上搜说是否已经存在同名包，如果存在就修改包名字（同上面第2步）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
