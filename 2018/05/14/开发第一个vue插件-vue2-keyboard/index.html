@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="说在前面关于“插件”和“组件”这两个词，我有点搞不清，插件是不是就是组件，组件是不是就是插件，二者是不是某种程度上是同一个概念呢？亦或二者有不同的地方。不管那么多，接下来两个概念我都称“插件”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发第一个vue插件 vue2-keyboard">
+<meta property="og:url" content="http://yoursite.com/2018/05/14/开发第一个vue插件-vue2-keyboard/index.html">
+<meta property="og:site_name" content="小前端，小码农">
+<meta property="og:description" content="说在前面关于“插件”和“组件”这两个词，我有点搞不清，插件是不是就是组件，组件是不是就是插件，二者是不是某种程度上是同一个概念呢？亦或二者有不同的地方。不管那么多，接下来两个概念我都称“插件”">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-14T10:54:49.098Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发第一个vue插件 vue2-keyboard">
+<meta name="twitter:description" content="说在前面关于“插件”和“组件”这两个词，我有点搞不清，插件是不是就是组件，组件是不是就是插件，二者是不是某种程度上是同一个概念呢？亦或二者有不同的地方。不管那么多，接下来两个概念我都称“插件”">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/14/开发第一个vue插件-vue2-keyboard/"/>
+
+
+
+
+
+  <title>开发第一个vue插件 vue2-keyboard | 小前端，小码农</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小前端，小码农</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人 生 苦 短</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-项目">
+          <a href="/project/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            项目
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/开发第一个vue插件-vue2-keyboard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="scyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/61524193096_.pic.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小前端，小码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">开发第一个vue插件 vue2-keyboard</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T17:49:51+08:00">
+                2018-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-updated">
+              &nbsp; | &nbsp; 更新于
+              <time itemprop="dateUpdated" datetime="2018-05-14T18:54:49+08:00" content="2018-05-14">
+                2018-05-14
+              </time>
+            </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/14/开发第一个vue插件-vue2-keyboard/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/05/14/开发第一个vue插件-vue2-keyboard/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/05/14/开发第一个vue插件-vue2-keyboard/" class="leancloud_visitors" data-flag-title="开发第一个vue插件 vue2-keyboard">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h3><p>关于“插件”和“组件”这两个词，我有点搞不清，插件是不是就是组件，组件是不是就是插件，二者是不是某种程度上是同一个概念呢？亦或二者有不同的地方。不管那么多，接下来两个概念我都称“插件”</p>
+<a id="more"></a>
+<h3 id="关于vue插件"><a href="#关于vue插件" class="headerlink" title="关于vue插件"></a>关于vue插件</h3><h4 id="1-导入插件"><a href="#1-导入插件" class="headerlink" title="1.导入插件"></a>1.导入插件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 见过比较多的是通过ES6的方式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> VueLazyload <span class="keyword">from</span> <span class="string">'vue-lazyload'</span></span><br><span class="line"><span class="comment">// var VueLazyload = require('vue-lazyload');</span></span><br><span class="line"> </span><br><span class="line">Vue.use(VueLazyload)</span><br><span class="line"></span><br><span class="line">Vue.use(VueLazyload, &#123;</span><br><span class="line">  preLoad: <span class="number">1.3</span>,</span><br><span class="line">  error: <span class="string">''</span>,</span><br><span class="line">  loading: <span class="string">''</span>,</span><br><span class="line">  attempt: <span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者直接通过script引入</span></span><br><span class="line"></span><br><span class="line">&lt;script src=<span class="string">"./dist/xxx.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-vue插件的规范"><a href="#2-vue插件的规范" class="headerlink" title="2.vue插件的规范"></a>2.vue插件的规范</h4><p>vue官方文档给出了开发vue插件的规范，插件通常会为 Vue 添加全局功能。插件的范围没有限制——一般有下面几种：</p>
+<ol>
+<li><p>添加全局方法或者属性，如: vue-custom-element</p>
+</li>
+<li><p>添加全局资源：指令/过滤器/过渡等，如 vue-touch</p>
+</li>
+<li><p>通过全局 mixin 方法添加一些组件选项，如: vue-router</p>
+</li>
+<li><p>添加 Vue 实例方法，通过把它们添加到 Vue.prototype 上实现。</p>
+</li>
+<li><p>一个库，提供自己的 API，同时提供上面提到的一个或多个功能，如 vue-router</p>
+</li>
+</ol>
+<p>Vue.js 的插件应当有一个公开方法 install 。这个方法的第一个参数是 Vue 构造器，第二个参数是一个可选的选项对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MyPlugin.install = <span class="function"><span class="keyword">function</span> (<span class="params">Vue, options</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 1. 添加全局方法或属性</span></span><br><span class="line">  Vue.myGlobalMethod = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 逻辑...</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2. 添加全局资源</span></span><br><span class="line">  Vue.directive(<span class="string">'my-directive'</span>, &#123;</span><br><span class="line">    bind (el, binding, vnode, oldVnode) &#123;</span><br><span class="line">      <span class="comment">// 逻辑...</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3. 注入组件</span></span><br><span class="line">  Vue.mixin(&#123;</span><br><span class="line">    created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 逻辑...</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 4. 添加实例方法</span></span><br><span class="line">  Vue.prototype.$myMethod = <span class="function"><span class="keyword">function</span> (<span class="params">methodOptions</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 逻辑...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="一些概念已经了解了，接下来开始开发"><a href="#一些概念已经了解了，接下来开始开发" class="headerlink" title="一些概念已经了解了，接下来开始开发"></a>一些概念已经了解了，接下来开始开发</h3><h4 id="1-初始化项目"><a href="#1-初始化项目" class="headerlink" title="1.初始化项目"></a>1.初始化项目</h4><p>我使用的是官方的vue-cli脚手架工具（由于自己目前还不熟悉从0搭建webpack工具，PS:webpack是一个打包工具，将项目的所有的资源文件打包成块，具体可以去看webpack官网）。</p>
+<p>初始化项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">vue init webpack-simple vue2-keyboard</span><br></pre></td></tr></table></figure>
+<p>在src文件目录下新建一个lib文件夹，并在lib文件夹下新建一个index.js文件作为插件的入口</p>
+<p>index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> vueKeyboard <span class="keyword">from</span> <span class="string">'./vue-keyboard.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keyboard = &#123;</span><br><span class="line">	install(Vue, options)&#123;</span><br><span class="line">		Vue.component(vueKeyboard.name,vueKeyboard)</span><br><span class="line">		<span class="comment">// vuePayKeyboard.name 组件的name属性</span></span><br><span class="line">        <span class="comment">// 类似通过 this.$xxx 方式调用插件的 其实只是挂载到原型上而已</span></span><br><span class="line">        <span class="comment">// Vue.prototype.$xxx  // 最终可以在任何地方通过 this.$xxx 调用</span></span><br><span class="line">        <span class="comment">// 虽然没有明确规定用$开头  但是大家都默认遵守这个规定</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当作为script引入时，需要手动引入插件</span></span><br><span class="line"><span class="comment">// 新增</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">'undefined'</span> &amp;&amp; <span class="built_in">window</span>.Vue) &#123;</span><br><span class="line">    <span class="built_in">window</span>.Vue.use(vueKeyboard);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> keyboard;</span><br></pre></td></tr></table></figure>
+<p>以上基本的开发环境就已经搭建完成了。</p>
+<p>文件结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── README.md                      // 项目的说明文档</span><br><span class="line">├── dist                           // 打包后的文件夹，打包后生成的</span><br><span class="line">│   ├── vue2-keyboard.js</span><br><span class="line">│   └── vue2-keyboard.js.map</span><br><span class="line">├── index.html                     // 入口index.html文件</span><br><span class="line">├── package.json</span><br><span class="line">├── src</span><br><span class="line">│   ├── App.vue                    // 页面入口</span><br><span class="line">│   ├── lib</span><br><span class="line">│   │   ├── index.js               // 插件入口文件</span><br><span class="line">│   │   ├── keyboard.vue           // 组件</span><br><span class="line">│   │   └── vue-keyboard.vue       // 组件</span><br><span class="line">│   └── main.js                    // 程序入口，加载各种组件和配置</span><br><span class="line">└── webpack.config.js              // webpack配置文件</span><br></pre></td></tr></table></figure>
+<h4 id="2-插件的业务逻辑"><a href="#2-插件的业务逻辑" class="headerlink" title="2.插件的业务逻辑"></a>2.插件的业务逻辑</h4><p>我们要写的插件是一个数字键盘，最初的想法是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 在我们程序的某个.vue组件页面中</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> @<span class="attr">focus</span>=<span class="string">'showBoard'</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">key-board</span> <span class="attr">ref</span>=<span class="string">'keyboard'</span> @<span class="attr">value</span>=<span class="string">'getValue'</span>&gt;</span><span class="tag">&lt;/<span class="name">key-board</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如上代码所示，当触发原生input的focus事件是，弹出我们的数字键盘插件。</p>
+<p>后来觉得这样写不够完整，也就是封装的不够好，用户使用的时候，每次都需要写一个input和一个key-board。一个好的组件：</p>
+<ul>
+<li>通用性 // 能够满足大部分用户需求</li>
+<li>可订制性 // 能够满足用户针对不同业务环境进行订制</li>
+<li>可扩展性 // 能够满足用户对其他方面的拓展</li>
+</ul>
+<p>所以后来修改为，将上诉的两个组件合并为一个组件，这样用户使用这个插件的时候只需要写一个插件，如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">vue-keyboard</span> <span class="attr">v-bind:inputclass</span>=<span class="string">"input"</span> <span class="attr">v-on:value</span>=<span class="string">'getValue'</span>&gt;</span><span class="tag">&lt;/<span class="name">vue-keyboard</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>具体的代码就不讲了，<a href="https://github.com/scyuan/vue2-keyboard" target="_blank" rel="noopener">详细代码 -&gt;</a>。</p>
+<h4 id="3-发布到npm前的工作。"><a href="#3-发布到npm前的工作。" class="headerlink" title="3.发布到npm前的工作。"></a>3.发布到npm前的工作。</h4><h5 id="修改webpack-config-js配置文件"><a href="#修改webpack-config-js配置文件" class="headerlink" title="修改webpack.config.js配置文件"></a>修改webpack.config.js配置文件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// entry: './src/main.js',       // 项目的入口文件</span></span><br><span class="line">entry : <span class="string">'./src/lib/index.js'</span>,    <span class="comment">// 插件的入口文件</span></span><br><span class="line">output: &#123;</span><br><span class="line">  path: path.resolve(__dirname, <span class="string">'./dist'</span>),   </span><br><span class="line">  publicPath: <span class="string">'/dist/'</span>,</span><br><span class="line">  <span class="comment">// filename: 'build.js'       // 打包后输出的文件名</span></span><br><span class="line">  filename : <span class="string">'vue2-keyboard.js'</span>, <span class="comment">// 我们可不想打包后叫build.js 多low啊 起一个与项目相对应的</span></span><br><span class="line">  library: <span class="string">'Vue2Keyboard'</span>,  <span class="comment">// library指定的就是你使用require时的模块名，这里便是require("vueKeyboard")</span></span><br><span class="line">  libraryTarget: <span class="string">'umd'</span>, <span class="comment">//libraryTarget会生成不同umd的代码,可以只是commonjs标准的，也可以是指amd标准的，也可以只是通过script标签引入的。</span></span><br><span class="line">  umdNamedDefine: <span class="literal">true</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h5 id="修改package-json"><a href="#修改package-json" class="headerlink" title="修改package.json"></a>修改package.json</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">private:false, // 默认是true 私人的 需要改为false 不然发不上去 你可以试试..</span><br><span class="line">"license": "MIT", // 许可证</span><br><span class="line">"main":"dist/vue2-keyboard.js", // 这个超级重要 决定了你 import xxx from “vue2-keyboard” 它默认就会去找 dist下的vue2-keyboard 文件</span><br><span class="line">"files": [  // 用于发布忽略 当我们的包够复杂的时候 我们总不能把所有本地开发或者测试的组件全部都发布上去 这个时候我们开启这个选项 意为只发布这两个文件 当然我们这个包比较简单 就不开启了</span><br><span class="line">   "dist",</span><br><span class="line">   <span class="string">"src"</span></span><br><span class="line">],</span><br><span class="line">"repository": &#123;</span><br><span class="line">   "type": "git",</span><br><span class="line">   "url": "https://github.com/scyuan/vue2-keyboard.git"</span><br><span class="line">&#125;, // 配置这个地址存放你项目在github上的位置 也尤为重要</span><br></pre></td></tr></table></figure>
+<h4 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h4><p>至此，一个简单的vue插件开发结束。接下来我将会去开发一个比较复杂的插件，vue-datepicke，一个基于vue移动端的日期选择器。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/08/打包vue插件并发布到npm/" rel="next" title="打包vue插件并发布到npm">
+                <i class="fa fa-chevron-left"></i> 打包vue插件并发布到npm
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/05/14/开发第一个vue插件-vue2-keyboard/"
+           data-title="开发第一个vue插件 vue2-keyboard" data-url="http://yoursite.com/2018/05/14/开发第一个vue插件-vue2-keyboard/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/61524193096_.pic.jpg"
+                alt="scyuan" />
+            
+              <p class="site-author-name" itemprop="name">scyuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+          <p>95后前端。总结、分享自己的生活和工作</p>
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/scyuan" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:644397334@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说在前面"><span class="nav-number">1.</span> <span class="nav-text">说在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于vue插件"><span class="nav-number">2.</span> <span class="nav-text">关于vue插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-导入插件"><span class="nav-number">2.1.</span> <span class="nav-text">1.导入插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-vue插件的规范"><span class="nav-number">2.2.</span> <span class="nav-text">2.vue插件的规范</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些概念已经了解了，接下来开始开发"><span class="nav-number">3.</span> <span class="nav-text">一些概念已经了解了，接下来开始开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-初始化项目"><span class="nav-number">3.1.</span> <span class="nav-text">1.初始化项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-插件的业务逻辑"><span class="nav-number">3.2.</span> <span class="nav-text">2.插件的业务逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-发布到npm前的工作。"><span class="nav-number">3.3.</span> <span class="nav-text">3.发布到npm前的工作。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改webpack-config-js配置文件"><span class="nav-number">3.3.1.</span> <span class="nav-text">修改webpack.config.js配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改package-json"><span class="nav-number">3.3.2.</span> <span class="nav-text">修改package.json</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结束"><span class="nav-number">3.4.</span> <span class="nav-text">结束</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scyuan</span>
+
+  
+</div>
+
+
+
+
+  
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'abzXBaRdqYjz0FhfC2aVqI3U-gzGzoHsz',
+        appKey: 'aTiCvdfHFrOh23IlkEj1H6eb',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("abzXBaRdqYjz0FhfC2aVqI3U-gzGzoHsz", "aTiCvdfHFrOh23IlkEj1H6eb");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
