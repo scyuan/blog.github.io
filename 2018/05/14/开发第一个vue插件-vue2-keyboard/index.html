@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Vue," />
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="说在前面关于“插件”和“组件”这两个词，我有点搞不清，插件是不是就是组件，组件是不是就是插件，二者是不是某种程度上是同一个概念呢？亦或二者有不同的地方。不管那么多，接下来两个概念我都称“插件”">
+<meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发第一个vue插件 vue2-keyboard">
 <meta property="og:url" content="http://yoursite.com/2018/05/14/开发第一个vue插件-vue2-keyboard/index.html">
 <meta property="og:site_name" content="努力、努力、再努力">
 <meta property="og:description" content="说在前面关于“插件”和“组件”这两个词，我有点搞不清，插件是不是就是组件，组件是不是就是插件，二者是不是某种程度上是同一个概念呢？亦或二者有不同的地方。不管那么多，接下来两个概念我都称“插件”">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-16T00:25:24.769Z">
+<meta property="og:updated_time" content="2018-05-17T07:16:51.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发第一个vue插件 vue2-keyboard">
 <meta name="twitter:description" content="说在前面关于“插件”和“组件”这两个词，我有点搞不清，插件是不是就是组件，组件是不是就是插件，二者是不是某种程度上是同一个概念呢？亦或二者有不同的地方。不管那么多，接下来两个概念我都称“插件”">
@@ -314,8 +315,8 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2018-05-16T08:25:24+08:00" content="2018-05-16">
-                2018-05-16
+              <time itemprop="dateUpdated" datetime="2018-05-17T15:16:51+08:00" content="2018-05-17">
+                2018-05-17
               </time>
             </span>
           
@@ -372,7 +373,7 @@
       
         <h3 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h3><p>关于“插件”和“组件”这两个词，我有点搞不清，插件是不是就是组件，组件是不是就是插件，二者是不是某种程度上是同一个概念呢？亦或二者有不同的地方。不管那么多，接下来两个概念我都称“插件”</p>
 <a id="more"></a>
-<h3 id="关于vue插件"><a href="#关于vue插件" class="headerlink" title="关于vue插件"></a>关于vue插件</h3><h4 id="1-导入插件"><a href="#1-导入插件" class="headerlink" title="1.导入插件"></a>1.导入插件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 见过比较多的是通过ES6的方式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> VueLazyload <span class="keyword">from</span> <span class="string">'vue-lazyload'</span></span><br><span class="line"><span class="comment">// var VueLazyload = require('vue-lazyload');</span></span><br><span class="line"> </span><br><span class="line">Vue.use(VueLazyload)</span><br><span class="line"></span><br><span class="line">Vue.use(VueLazyload, &#123;</span><br><span class="line">  preLoad: <span class="number">1.3</span>,</span><br><span class="line">  error: <span class="string">''</span>,</span><br><span class="line">  loading: <span class="string">''</span>,</span><br><span class="line">  attempt: <span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者直接通过script引入</span></span><br><span class="line"></span><br><span class="line">&lt;script src=<span class="string">"./dist/xxx.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="关于vue插件"><a href="#关于vue插件" class="headerlink" title="关于vue插件"></a>关于vue插件</h3><h4 id="1-导入插件"><a href="#1-导入插件" class="headerlink" title="1.导入插件"></a>1.导入插件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 见过比较多的是通过ES6的方式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> VueLazyload <span class="keyword">from</span> <span class="string">'vue-lazyload'</span></span><br><span class="line"><span class="comment">// var VueLazyload = require('vue-lazyload');</span></span><br><span class="line"> </span><br><span class="line">Vue.use(VueLazyload)</span><br><span class="line"></span><br><span class="line">Vue.use(VueLazyload, &#123;</span><br><span class="line">  preLoad: <span class="number">1.3</span>,</span><br><span class="line">  error: <span class="string">''</span>,</span><br><span class="line">  loading: <span class="string">''</span>,</span><br><span class="line">  attempt: <span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者直接通过script引入</span></span><br><span class="line"></span><br><span class="line">&lt;script src=<span class="string">"./dist/xxx.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <h4 id="2-vue插件的规范"><a href="#2-vue插件的规范" class="headerlink" title="2.vue插件的规范"></a>2.vue插件的规范</h4><p>vue官方文档给出了开发vue插件的规范，插件通常会为 Vue 添加全局功能。插件的范围没有限制——一般有下面几种：</p>
 <ol>
 <li><p>添加全局方法或者属性，如: vue-custom-element</p>
@@ -435,6 +436,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
 
       
       
@@ -453,6 +460,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/17/初学webpack、从0搭建webpack开发环境/" rel="prev" title="初学webpack、从0搭建webpack开发环境">
+                初学webpack、从0搭建webpack开发环境 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -540,7 +551,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -562,7 +573,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
