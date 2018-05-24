@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在项目中需要使用git来协同开发，在分支上push以及pull代码。 由于切换分支等操作在之前配置环境就已经做好了。所以就从pull最新的代码，然后合并，然后再提交代码。出现的问题依次如下： 修改代码之后第一次pull123456789101112131415161718yuansichaodeMacBook-Pro:feixun yuansichao$ git pullremote: Count">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用git协同开发">
+<meta property="og:url" content="http://yoursite.com/2018/05/24/使用git协同开发/index.html">
+<meta property="og:site_name" content="熬">
+<meta property="og:description" content="在项目中需要使用git来协同开发，在分支上push以及pull代码。 由于切换分支等操作在之前配置环境就已经做好了。所以就从pull最新的代码，然后合并，然后再提交代码。出现的问题依次如下： 修改代码之后第一次pull123456789101112131415161718yuansichaodeMacBook-Pro:feixun yuansichao$ git pullremote: Count">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-24T12:09:15.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用git协同开发">
+<meta name="twitter:description" content="在项目中需要使用git来协同开发，在分支上push以及pull代码。 由于切换分支等操作在之前配置环境就已经做好了。所以就从pull最新的代码，然后合并，然后再提交代码。出现的问题依次如下： 修改代码之后第一次pull123456789101112131415161718yuansichaodeMacBook-Pro:feixun yuansichao$ git pullremote: Count">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/24/使用git协同开发/"/>
+
+
+
+
+
+  <title>使用git协同开发 | 熬</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">熬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just a Boy Caught Up in Dreams and Fantasies</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-项目">
+          <a href="/project/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            项目
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/使用git协同开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="scyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/61524193096_.pic.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="熬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用git协同开发</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T16:48:59+08:00">
+                2018-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-updated">
+              &nbsp; | &nbsp; 更新于
+              <time itemprop="dateUpdated" datetime="2018-05-24T20:09:15+08:00" content="2018-05-24">
+                2018-05-24
+              </time>
+            </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/24/使用git协同开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/05/24/使用git协同开发/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/05/24/使用git协同开发/" class="leancloud_visitors" data-flag-title="使用git协同开发">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在项目中需要使用git来协同开发，在分支上push以及pull代码。</p>
+<p>由于切换分支等操作在之前配置环境就已经做好了。所以就从pull最新的代码，然后合并，然后再提交代码。出现的问题依次如下：</p>
+<h5 id="修改代码之后第一次pull"><a href="#修改代码之后第一次pull" class="headerlink" title="修改代码之后第一次pull"></a>修改代码之后第一次pull</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">remote: Counting objects: 1110, <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (605/605), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 1110 (delta 533), reused 995 (delta 477)</span><br><span class="line">Receiving objects: 100% (1110/1110), 9.30 MiB | 119.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (533/533), <span class="keyword">done</span>.</span><br><span class="line">From 121.43.106.14:feixun/feixun</span><br><span class="line">   0e0fa2539..be14ed305  integral    -&gt; origin/integral</span><br><span class="line">   526c2098a..a2d34541e  dev         -&gt; origin/dev</span><br><span class="line">   4b45ff4ae..3904db996  dev_master  -&gt; origin/dev_master</span><br><span class="line">   eeb8ba908..468b0d843  master      -&gt; origin/master</span><br><span class="line"> * [new branch]          meiqia      -&gt; origin/meiqia</span><br><span class="line">   e15d9f59c..5eae10eac  online_plus -&gt; origin/online_plus</span><br><span class="line">   eeb8ba908..7d808221f  page_youhua -&gt; origin/page_youhua</span><br><span class="line">Updating 0e0fa2539..be14ed305</span><br><span class="line">error: Your <span class="built_in">local</span> changes to the following files would be overwritten by merge:</span><br><span class="line">        extends/integralshop/controller/mobile/static.php</span><br><span class="line">Please commit your changes or stash them before you merge.</span><br></pre></td></tr></table></figure>
+<p>报错：Your local changes to the following files would be overwritten by merge:<br>        extends/integralshop/controller/mobile/static.php<br>Please commit your changes or stash them before you merge.</p>
+<p>意思是：合并之后你本地修改的文件会被重写覆盖，请提交你的修改或者stash他们，在合并之前</p>
+<p>（有个问题，就是git pull 的操作会拉最新的代码下来，然后再自动merge。如果没有merge，你本地的代码就没有更新）</p>
+<h5 id="上面报错，于是先git-add-然后再git-commit-m-“info”"><a href="#上面报错，于是先git-add-然后再git-commit-m-“info”" class="headerlink" title="上面报错，于是先git add . 然后再git commit -m “info”"></a>上面报错，于是先git add . 然后再git commit -m “info”</h5><p>这个时候本地仓库已经提交</p>
+<h5 id="再执行git-pull"><a href="#再执行git-pull" class="headerlink" title="再执行git pull"></a>再执行git pull</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">Removing public/integralshop/js/goodsdetail.js</span><br><span class="line">Removing extends/integralshop/lib/score/objects.php</span><br><span class="line">Auto-merging extends/integralshop/controller/mobile/static.php</span><br><span class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> extends/integralshop/controller/mobile/static.php</span><br><span class="line">Automatic merge failed; fix conflicts and <span class="keyword">then</span> commit the result.</span><br></pre></td></tr></table></figure>
+<p>（我理解的）大致的意思是代码有冲突(解决冲突再commit)。(static.php)。于是我打开static.php将多出来乱码删除，再次git pull</p>
+<p>再次出错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">error: Pulling is not possible because you have unmerged files.</span><br><span class="line">hint: Fix them up <span class="keyword">in</span> the work tree, and <span class="keyword">then</span> use <span class="string">'git add/rm &lt;file&gt;'</span></span><br><span class="line">hint: as appropriate to mark resolution and make a commit.</span><br><span class="line">fatal: Exiting because of an unresolved conflict.</span><br></pre></td></tr></table></figure>
+<p>出错：Pulling is not possible because you have unmerged files.pull代码出错，因为你还有没有合并的文件。</p>
+<p>网上的解决方案：<a href="https://blog.csdn.net/xinguan1267/article/details/39028789" target="_blank" rel="noopener">https://blog.csdn.net/xinguan1267/article/details/39028789</a></p>
+<p>步骤</p>
+<p>1、git add -u </p>
+<p>2、git commit -m “”</p>
+<p>3、再次git pull</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">Already up to date.</span><br></pre></td></tr></table></figure>
+<p>貌似是可以了？（这个时候已经忘了是不是可以了）</p>
+<h5 id="通过git-status查看本地当前分支的状态"><a href="#通过git-status查看本地当前分支的状态" class="headerlink" title="通过git status查看本地当前分支的状态"></a>通过git status查看本地当前分支的状态</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git status</span><br><span class="line">On branch integral</span><br><span class="line">Your branch is ahead of <span class="string">'origin/integral'</span> by 2 commits.</span><br><span class="line">  (use <span class="string">"git push"</span> to publish your <span class="built_in">local</span> commits)</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line"></span><br><span class="line">        modified:   extends/integralshop/controller/mobile/static.php</span><br><span class="line">        modified:   extends/integralshop/view/mobile/orderhistory.html</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br></pre></td></tr></table></figure>
+<p>可以看出一些信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">On branch integral</span><br><span class="line">Your branch is ahead of <span class="string">'origin/integral'</span> by 2 commits.</span><br><span class="line">  (use <span class="string">"git push"</span> to publish your <span class="built_in">local</span> commits)</span><br></pre></td></tr></table></figure>
+<p>有两个commit没有提交</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line"></span><br><span class="line">        modified:   extends/integralshop/controller/mobile/static.php</span><br><span class="line">        modified:   extends/integralshop/view/mobile/orderhistory.html</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br></pre></td></tr></table></figure>
+<p>修改not statged for commit 。也就是说要先git add .</p>
+<p>下面用了git stash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git stash</span><br><span class="line">Saved working directory and index state WIP on integral: 23c00066d 2018-05-24 10:33:07 ysc</span><br><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull origin integral</span><br><span class="line">From 121.43.106.14:feixun/feixun</span><br><span class="line"> * branch                integral   -&gt; FETCH_HEAD</span><br><span class="line">Already up to date.</span><br><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull origin integral</span><br><span class="line">From 121.43.106.14:feixun/feixun</span><br><span class="line"> * branch                integral   -&gt; FETCH_HEAD</span><br><span class="line">Already up to date.</span><br></pre></td></tr></table></figure>
+<p>然后git stash pop(我并不知道作用是什么)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">On branch integral</span><br><span class="line">Your branch is ahead of <span class="string">'origin/integral'</span> by 2 commits.</span><br><span class="line">  (use <span class="string">"git push"</span> to publish your <span class="built_in">local</span> commits)</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line"></span><br><span class="line">        modified:   extends/integralshop/controller/mobile/static.php</span><br><span class="line">        modified:   extends/integralshop/view/mobile/orderhistory.html</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br><span class="line">Dropped refs/stash@&#123;0&#125; (e0717a9835350dc7b72598b71364c8e6759263fa)</span><br></pre></td></tr></table></figure>
+<p>其实这个时候是有错误的，但我还是git push origin</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git push origin</span><br><span class="line">To 121.43.106.14:feixun/feixun.git</span><br><span class="line"> ! [rejected]            integral -&gt; integral (fetch first)</span><br><span class="line">error: failed to push some refs to <span class="string">'git@121.43.106.14:feixun/feixun.git'</span></span><br><span class="line">hint: Updates were rejected because the remote contains work that you <span class="keyword">do</span></span><br><span class="line">hint: not have locally. This is usually caused by another repository pushing</span><br><span class="line">hint: to the same ref. You may want to first integrate the remote changes</span><br><span class="line">hint: (e.g., <span class="string">'git pull ...'</span>) before pushing again.</span><br><span class="line">hint: See the <span class="string">'Note about fast-forwards'</span> <span class="keyword">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.</span><br></pre></td></tr></table></figure>
+<p>又 git pull</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">remote: Counting objects: 79, <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (79/79), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 79 (delta 28), reused 0 (delta 0)</span><br><span class="line">Unpacking objects: 100% (79/79), <span class="keyword">done</span>.</span><br><span class="line">From 121.43.106.14:feixun/feixun</span><br><span class="line">   be14ed305..00d59b98e  integral   -&gt; origin/integral</span><br><span class="line">Auto-merging extends/integralshop/controller/mobile/static.php</span><br><span class="line">error: There was a problem with the editor <span class="string">'vi'</span>.</span><br><span class="line">Not committing merge; use <span class="string">'git commit'</span> to complete the merge.</span><br></pre></td></tr></table></figure>
+<p>又git pull<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">error: You have not concluded your merge (MERGE_HEAD exists).</span><br><span class="line">hint: Please, commit your changes before merging.</span><br><span class="line">fatal: Exiting because of unfinished merge.</span><br></pre></td></tr></table></figure></p>
+<p>又 git commit -m</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git commit -m <span class="string">"2018-05-24 11:17:14 ysc"</span></span><br><span class="line">[integral 44b6c7ddd] 2018-05-24 11:17:14 ysc</span><br></pre></td></tr></table></figure>
+<p>然后git pull<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">remote: Counting objects: 10, <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (9/9), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 10 (delta 0), reused 0 (delta 0)</span><br><span class="line">Unpacking objects: 100% (10/10), <span class="keyword">done</span>.</span><br><span class="line">From 121.43.106.14:feixun/feixun</span><br><span class="line">   00d59b98e..4a33c5d00  integral   -&gt; origin/integral</span><br><span class="line">Merge made by the <span class="string">'recursive'</span> strategy.</span><br><span class="line"> extends/integralshop/lib/score/objects/order.php | 18 +++++++++++++-----</span><br><span class="line"> extends/integralshop/model/score.php             | 14 +++++++++++++-</span><br><span class="line"> 2 files changed, 26 insertions(+), 6 deletions(-)</span><br></pre></td></tr></table></figure></p>
+<p>又 git pull</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">Already up to date.</span><br></pre></td></tr></table></figure>
+<p>git status</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git status</span><br><span class="line">On branch integral</span><br><span class="line">Your branch is ahead of <span class="string">'origin/integral'</span> by 5 commits.</span><br><span class="line">  (use <span class="string">"git push"</span> to publish your <span class="built_in">local</span> commits)</span><br><span class="line"></span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+<p>提交</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git push origin</span><br><span class="line">Counting objects: 87, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (86/86), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (87/87), 282.38 KiB | 6.14 MiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 87 (delta 42), reused 0 (delta 0)</span><br><span class="line">remote: </span><br><span class="line">remote: Create merge request <span class="keyword">for</span> integral:</span><br><span class="line">remote:   http://121.43.106.14/feixun/feixun/merge_requests/new?merge_request%5Bsource_branch%5D=integral</span><br><span class="line">remote: </span><br><span class="line">To 121.43.106.14:feixun/feixun.git</span><br><span class="line">   4a33c5d00..212299f55  integral -&gt; integral</span><br></pre></td></tr></table></figure>
+<p>git status 查看状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git status</span><br><span class="line">On branch integral</span><br><span class="line">Your branch is up to date with <span class="string">'origin/integral'</span>.</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line"></span><br><span class="line">        modified:   extends/integralshop/view/mobile/orderhistory.html</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br></pre></td></tr></table></figure>
+<p>git commit -m </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git commit -m <span class="string">"2018-05-24 14:51:34 ysc"</span></span><br><span class="line">On branch integral</span><br><span class="line">Your branch is up to date with <span class="string">'origin/integral'</span>.</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">        modified:   extends/integralshop/view/mobile/orderhistory.html</span><br><span class="line"></span><br><span class="line">no changes added to commit</span><br></pre></td></tr></table></figure>
+<p>git pull</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git pull</span><br><span class="line">remote: Counting objects: 137, <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (84/84), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 137 (delta 53), reused 111 (delta 47)</span><br><span class="line">Receiving objects: 100% (137/137), 95.11 KiB | 1024 bytes/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (53/53), <span class="keyword">done</span>.</span><br><span class="line">From 121.43.106.14:feixun/feixun</span><br><span class="line">   212299f55..12096a3d8  integral    -&gt; origin/integral</span><br><span class="line">   a2d34541e..64bb9c03c  dev         -&gt; origin/dev</span><br><span class="line">   3904db996..fa676f7b7  dev_master  -&gt; origin/dev_master</span><br><span class="line">   5eae10eac..d45cbfa72  online_plus -&gt; origin/online_plus</span><br><span class="line">   7d808221f..d0ee07f92  page_youhua -&gt; origin/page_youhua</span><br><span class="line">Updating 212299f55..12096a3d8</span><br><span class="line">Fast-forward</span><br><span class="line"> extends/aftersales/controller/mobile/member.php   |  33 ++++++++++----------</span><br><span class="line"> extends/aftersales/controller/site/member.php     |  39 +++++++++++------------</span><br><span class="line"> extends/b2c/controller/admin/order.php            |   4 +++</span><br><span class="line"> extends/b2c/controller/mobile/member.php          |   2 +-</span><br><span class="line"> extends/b2c/controller/site/member.php            |   2 +-</span><br><span class="line"> extends/b2c/lib/goods/stage.php                   |   2 +-</span><br><span class="line"> extends/b2c/lib/order/cancelfinish.php            |  15 +++++++++</span><br><span class="line"> extends/b2c/lib/order/payfinish.php               |  15 +++++++++</span><br><span class="line"> extends/integralshop/controller/mobile/list.php   | 194 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--------</span><br><span class="line"> extends/integralshop/controller/mobile/static.php |   3 ++</span><br><span class="line"> extends/integralshop/lib/list.php                 |  50 ++++++++++++++++++++---------</span><br><span class="line"> extends/integralshop/lib/score/objects/order.php  |  35 ++++++++++++---------</span><br><span class="line"> extends/integralshop/lib/service/order/cancel.php |  40 ------------------------</span><br><span class="line"> extends/integralshop/lib/service/order/end.php    |  40 ------------------------</span><br><span class="line"> extends/integralshop/services.xml                 |   7 -----</span><br><span class="line"> 15 files changed, 312 insertions(+), 169 deletions(-)</span><br><span class="line"> delete mode 100644 extends/integralshop/lib/service/order/cancel.php</span><br><span class="line">delete mode 100644 extends/integralshop/lib/service/order/end.php</span><br><span class="line">yuansichaodeMacBook-Pro:feixun yuansichao$ git status</span><br><span class="line">On branch integral</span><br><span class="line">Your branch is up to date with <span class="string">'origin/integral'</span>.</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line"></span><br><span class="line">        modified:   extends/integralshop/view/mobile/orderhistory.html</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/17/如何使用雪碧图/" rel="next" title="如何使用雪碧图">
+                <i class="fa fa-chevron-left"></i> 如何使用雪碧图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/05/24/使用git协同开发/"
+           data-title="使用git协同开发" data-url="http://yoursite.com/2018/05/24/使用git协同开发/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/61524193096_.pic.jpg"
+                alt="scyuan" />
+            
+              <p class="site-author-name" itemprop="name">scyuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+          <p>95后前端。总结、分享自己的生活和工作</p>
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/scyuan" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:644397334@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改代码之后第一次pull"><span class="nav-number">1.</span> <span class="nav-text">修改代码之后第一次pull</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上面报错，于是先git-add-然后再git-commit-m-“info”"><span class="nav-number">2.</span> <span class="nav-text">上面报错，于是先git add . 然后再git commit -m “info”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#再执行git-pull"><span class="nav-number">3.</span> <span class="nav-text">再执行git pull</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过git-status查看本地当前分支的状态"><span class="nav-number">4.</span> <span class="nav-text">通过git status查看本地当前分支的状态</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scyuan</span>
+
+  
+</div>
+
+
+
+
+  
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'abzXBaRdqYjz0FhfC2aVqI3U-gzGzoHsz',
+        appKey: 'aTiCvdfHFrOh23IlkEj1H6eb',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("abzXBaRdqYjz0FhfC2aVqI3U-gzGzoHsz", "aTiCvdfHFrOh23IlkEj1H6eb");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
