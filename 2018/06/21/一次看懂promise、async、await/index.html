@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Promise,async,await," />
 
 
 
@@ -79,14 +79,23 @@
 
 
 
+<meta name="description" content="ES2017引入了async函数，是一种异步解决方案。">
+<meta name="keywords" content="Promise,async,await">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一次看懂promise、async、await">
 <meta property="og:url" content="http://yoursite.com/2018/06/21/一次看懂promise、async、await/index.html">
 <meta property="og:site_name" content="熬">
+<meta property="og:description" content="ES2017引入了async函数，是一种异步解决方案。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-21T07:08:25.051Z">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1fsivsclm3vj30l201bmwy.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1fsiwnjw7hxj30ku034mx2.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1fsjobyct28j30k604s3yl.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1fsjos8z9upj30k804pdfw.jpg">
+<meta property="og:updated_time" content="2018-06-22T02:18:58.184Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次看懂promise、async、await">
+<meta name="twitter:description" content="ES2017引入了async函数，是一种异步解决方案。">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1fsivsclm3vj30l201bmwy.jpg">
 
 
 
@@ -311,8 +320,8 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2018-06-21T15:08:25+08:00" content="2018-06-21">
-                2018-06-21
+              <time itemprop="dateUpdated" datetime="2018-06-22T10:18:58+08:00" content="2018-06-22">
+                2018-06-22
               </time>
             </span>
           
@@ -367,7 +376,80 @@
       
 
       
-        
+        <p>ES2017引入了<strong>async</strong>函数，是一种异步解决方案。</p>
+<a id="more"></a>
+<p>另外两中异步解决方案是回调（会引发回调地狱）和Promise</p>
+<p>由于牵扯到promise，所以先去复习了下promise的语法用处</p>
+<h4 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h4><p><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="noopener">阮一峰 es6</a></p>
+<blockquote>
+<p>promise是ES6引入的异步编程的解决方案。</p>
+</blockquote>
+<p>所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。</p>
+<p>Promise对象有两个特点：</p>
+<ul>
+<li><strong>对象的状态不受外界干扰</strong>。Promise对象有3个状态：<code>pendding</code>(进行中)，<code>fulfilled</code>(已成功)，<code>rejected</code>(已失败)。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。</li>
+<li><strong>一旦状态改变，就不会再变</strong>，任何时候都可以得到这个结果。Promise对象的状态改变，只有两种可能：从pending变为fulfilled和从pending变为rejected。</li>
+</ul>
+<p>有了Promise对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。此外，Promise对象提供统一的接口，使得控制异步操作更加容易。</p>
+<h4 id="Promise基本用法"><a href="#Promise基本用法" class="headerlink" title="Promise基本用法"></a>Promise基本用法</h4><p>ES6 规定，<code>Promise</code>对象是一个构造函数，用来生成<code>Promise</code>实例。</p>
+<p>创建一个Promise实例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... some code</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。它们是两个函数，由 JavaScript 引擎提供，不用自己部署。</p>
+<p>resolve函数的作用是，将Promise对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；reject函数的作用是，将Promise对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
+<p>Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>then方法可以接受两个回调函数作为参数。第一个回调函数是Promise对象的状态变为resolved时调用，第二个回调函数是Promise对象的状态变为rejected时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受Promise对象传出的值作为参数。</p>
+<p>下面是一个Promise对象的简单例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(resolve, ms, <span class="string">'done'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timeout(<span class="number">100</span>).then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，timeout方法返回一个Promise实例，表示一段时间以后才会发生的结果。过了指定的时间（ms参数）以后，Promise实例的状态变为resolved，就会触发then方法绑定的回调函数。</p>
+<p><strong>Promise 新建后就会立即执行。</strong></p>
+<h4 id="什么是async"><a href="#什么是async" class="headerlink" title="什么是async"></a>什么是async</h4><p>async 函数是 Generator 函数的语法糖。使用 关键字 async 来表示，在函数内部使用 await 来表示异步。相较于 Generator，async 函数的改进在于下面四点：</p>
+<ul>
+<li><p><strong>内置执行器</strong>。Generator 函数的执行必须依靠执行器，而 async 函数自带执行器，调用方式跟普通函数的调用一样</p>
+</li>
+<li><p><strong>更好的语义</strong>。async 和 await 相较于 * 和 yield 更加语义化</p>
+</li>
+<li><strong>更广的适用性</strong>。co 模块约定，yield 命令后面只能是 Thunk 函数或 Promise对象。而 async 函数的 await 命令后面则可以是 Promise 或者 原始类型的值（Number，string，boolean，但这时等同于同步操作）</li>
+<li><strong>返回值是 Promise</strong>。async 函数返回值是 Promise 对象，比 Generator 函数返回的 Iterator 对象方便，可以直接使用 then() 方法进行调用</li>
+</ul>
+<h4 id="使用async"><a href="#使用async" class="headerlink" title="使用async"></a>使用async</h4><p>直接对function申明使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncFn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'我后执行'</span></span><br><span class="line">&#125;</span><br><span class="line">asyncFn().then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'我先执行'</span>);</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fsivsclm3vj30l201bmwy.jpg" alt=""></p>
+<p>async申明的函数会默认返回一个promise对象。return后面的值即为resolve时的参数（例子中的result的值即为function返回的值），<strong>如果函数内部发生错误，则返回的promise对象的状态为reject</strong>。虽然是上面asyncFn()先执行，但是已经被定义异步函数了，不会影响后续函数的执行。</p>
+<p>==注意==：必须包含return语句，否则resolve会返回一个undefined值</p>
+<p>也可以如下：</p>
+<ul>
+<li><figure class="highlight plain"><figcaption><span>Promise.reject('has an error')```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- ```return Promise.resolve(&apos;success&apos;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="什么是await"><a href="#什么是await" class="headerlink" title="什么是await"></a>什么是await</h4><p>await（异步等待），被用来等待一个promise，只能出现在async函数内部。任何async函数都会返回一个promise对象，而promise解析的值即为函数返回的值（return的值）。而async函数必须等内部所有await的promise的对象执行完成，才会发生状态改变并返回。</p>
+<blockquote>
+<p>The <figure class="highlight plain"><figcaption><span>expression causes  ```async ``` function execution to pause until  a  ```Promise ``` is fulfilled, that is resolved or rejected, and to resume execution of the  ```async ``` function after fulfillment. When resumed, the value of the await expression is that of the fulfilled  ```Promise ```.</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">await表达式会导致async函数“暂停”执行。当该promise状态是完成时（resolve或者reject）。async会继续执行下面的语句。并且await语句的返回值就是这个promise解析返回的值。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; If the Promise is rejected, the await expression throws the rejected value.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; If the value of the expression following the await operator is not a Promise, it&apos;s converted to a resolved Promise.</span><br><span class="line"></span><br><span class="line">如果await后面接的语句不是一个promise。则会自动转化为一个已经resolve的promise。该promise解析的值就是该值。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">掘金：</span><br><span class="line"></span><br><span class="line">很多人以为**await**会一直等待之后的表达式执行完之后才会继续执行后面的代码，实际上==await是一个让出线程的标志==。==await后面的函数会先执行一遍==，然后就会跳出整个async函数来执行后面js栈的代码。==等本轮事件循环执行完了之后又会跳回到async函数中等待await后面表达式的返回值==，如果返回值为非promise则继续执行async函数后面的代码，否则将返回的promise放入Promise队列（Promise的Job Queue）</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line"></span><br><span class="line">```JavaScript</span><br><span class="line">async function asyncFn() &#123;</span><br><span class="line">	await console.log(&apos;我先执行-1.1&apos;);</span><br><span class="line">	await console.log(&apos;我先执行-1.2&apos;);</span><br><span class="line">	console.log(&apos;我先执行-2&apos;);</span><br><span class="line">    return &apos;我后执行&apos;</span><br><span class="line">&#125;</span><br><span class="line">asyncFn().then(result =&gt; &#123;</span><br><span class="line">    console.log(result);</span><br><span class="line">&#125;)</span><br><span class="line">console.log(&apos;我先执行&apos;);</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>结果：<br><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fsiwnjw7hxj30ku034mx2.jpg" alt=""></p>
+<p>函数前面的async关键字，表明该函数内部有异步操作。调用该函数时，会立即返回一个Promise对象</p>
+<p>一步步来解析：</p>
+<p>首先执行asyncFn函数，执行第一条语句，是一个<code>await</code>，于是先执行await后面的函数，打印了一条<code>我先执行-1.1</code>，然后跳出<code>async</code>函数，执行后面的函数，即打印<code>我先执行</code>，由于<code>async</code>还未执行完<code>await</code>，所以还不能返回状态，继续执行后面的函数，打印<code>我先执行-1.2</code>和<code>我先执行-2</code>。然后返回状态。执行<code>then</code>里面的内容。</p>
+<p>再来一个例子，加深理解：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testSometing</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"testSomething"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"return testSomething"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">testAsync</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"testAsync"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(<span class="string">"hello async"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"test start..."</span>);</span><br><span class="line">    <span class="keyword">const</span> testFn1 = <span class="keyword">await</span> testSometing();</span><br><span class="line">    <span class="built_in">console</span>.log(testFn1);</span><br><span class="line">    <span class="keyword">const</span> testFn2 = <span class="keyword">await</span> testAsync();</span><br><span class="line">    <span class="built_in">console</span>.log(testFn2);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'test end...'</span>);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="keyword">var</span> promiseFn = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>)=&gt;</span> &#123; </span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"promise START..."</span>);</span><br><span class="line">                    resolve(<span class="string">"promise RESOLVE"</span>);</span><br><span class="line">                &#125;);</span><br><span class="line">promiseFn.then(<span class="function">(<span class="params">val</span>)=&gt;</span> <span class="built_in">console</span>.log(val));</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"===END==="</span>)</span><br></pre></td></tr></table></figure>
+<p>运行截图：</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fsjobyct28j30k604s3yl.jpg" alt=""></p>
+<p>一步一步来解析：</p>
+<p>首先定义了三个函数，两个<code>async</code>函数，然后执行<code>test()</code>函数。第一步打印<code>test start...</code>，然后执行testFn1，是一条await语句，所以会先执行<code>testSomething()</code>，打印<code>testSomething</code>，然后返回<code>return testSomething</code>，执行完第一条await语句后，让出线程，会跳出<code>test()</code>函数，然后执行promiseFn（定义promise的时候，会执行里面的语句），所以会打印出<code>promise START...</code>，接下来会把<code>resolve(&quot;promise RESOLVE&quot;)</code>放入Promise队列，继续执行打印<code>===END===</code></p>
+<p>等本轮事件循环执行结束后，又会跳回到<code>async</code>函数中（<code>test()</code>函数），等待之前<code>await</code> 后面表达式的返回值，因为<code>testSometing()</code> 不是<code>async</code>函数，所以返回的是一个字符串<code>returntestSometing</code><br>，然后打印出<code>returntestSometing</code>，执行第二个<code>await</code>，执行<code>testAsync</code>函数，理解打印<code>testAsync</code>。然后再次跳出<code>test()</code>函数，此时来到了Promise队列，执行<code>promiseFn.then((val)=&gt; console.log(val));</code>，打印<code>promise RESOLVE</code>,</p>
+<p>之后和前面一样 又跳回到<code>test</code>函数继续执行<code>console.log(testFn2)</code>的返回值，打印出<code>hello async</code>。</p>
+<p>最后打印“<code>test end...</code>”。</p>
+<p>当把<code>testSomething</code>函数变为async函数时，结果会怎样？</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1fsjos8z9upj30k804pdfw.jpg" alt=""></p>
+<p>发现还是有一点不同的：</p>
+<p>和上一个例子比较发现<code>promiseFn.then((val)=&gt; console.log(val))</code>;先于<code>console.log(testFn1)</code>;执行，原因是因为现在<code>testSomething()</code>已经是<code>async</code>函数，返回的是一个<code>Promise</code>对象要要等它<code>resolve</code>，所以将当前<code>Promise</code>推入队列，所以会继续跳出<code>test()</code>函数执行后续代码。之后就开始执行<code>Promise</code>的任务队列了，所以先执行了<code>promise.then((val)=&gt; console.log(val))</code>;因为这<code>个Promise</code>对象先推入队列。</p>
+<h4 id="使用用await-async的优势"><a href="#使用用await-async的优势" class="headerlink" title="使用用await/async的优势"></a>使用用await/async的优势</h4><ol>
+<li>是一种编写异步代码的新方法。之前异步代码的方案是callback和promise。</li>
+<li>建立在 promise 的基础上，与promise一样也是非阻塞的。</li>
+<li>async/await 让异步代码看起来、表现起来更像同步代码。这正是其威力所在。</li>
+</ol>
+
       
     </div>
     
@@ -381,6 +463,16 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Promise/" rel="tag"># Promise</a>
+          
+            <a href="/tags/async/" rel="tag"># async</a>
+          
+            <a href="/tags/await/" rel="tag"># await</a>
+          
+        </div>
       
 
       
@@ -458,8 +550,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -500,7 +601,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -539,6 +640,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Promise"><span class="nav-number">1.</span> <span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Promise基本用法"><span class="nav-number">2.</span> <span class="nav-text">Promise基本用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是async"><span class="nav-number">3.</span> <span class="nav-text">什么是async</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用async"><span class="nav-number">4.</span> <span class="nav-text">使用async</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是await"><span class="nav-number">5.</span> <span class="nav-text">什么是await</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用用await-async的优势"><span class="nav-number">6.</span> <span class="nav-text">使用用await/async的优势</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
