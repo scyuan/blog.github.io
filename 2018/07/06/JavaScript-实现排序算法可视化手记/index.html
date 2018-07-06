@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="排序算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言大学的时候，学习算法的时候，老师通过界面程序展示了几大排序算法的步骤。那个时候觉得还挺好玩，后来由于基本上用不到什么排序算法。这些排序算法也慢慢生疏了。最近打算用JS来熟悉一下这个几个算法，并且在前端有一个可视化的排序过程。">
+<meta name="keywords" content="排序算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 实现排序算法可视化手记">
+<meta property="og:url" content="http://yoursite.com/2018/07/06/JavaScript-实现排序算法可视化手记/index.html">
+<meta property="og:site_name" content="一枚程序袁">
+<meta property="og:description" content="前言大学的时候，学习算法的时候，老师通过界面程序展示了几大排序算法的步骤。那个时候觉得还挺好玩，后来由于基本上用不到什么排序算法。这些排序算法也慢慢生疏了。最近打算用JS来熟悉一下这个几个算法，并且在前端有一个可视化的排序过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-06T02:04:54.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 实现排序算法可视化手记">
+<meta name="twitter:description" content="前言大学的时候，学习算法的时候，老师通过界面程序展示了几大排序算法的步骤。那个时候觉得还挺好玩，后来由于基本上用不到什么排序算法。这些排序算法也慢慢生疏了。最近打算用JS来熟悉一下这个几个算法，并且在前端有一个可视化的排序过程。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/06/JavaScript-实现排序算法可视化手记/"/>
+
+
+
+
+
+  <title>JavaScript 实现排序算法可视化手记 | 一枚程序袁</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一枚程序袁</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端是一座没有顶峰的山，所以我会一直往上爬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-项目">
+          <a href="/project/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            项目
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/06/JavaScript-实现排序算法可视化手记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="scyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/61524193096_.pic.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一枚程序袁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript 实现排序算法可视化手记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-06T10:03:37+08:00">
+                2018-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/06/JavaScript-实现排序算法可视化手记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/07/06/JavaScript-实现排序算法可视化手记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>大学的时候，学习算法的时候，老师通过界面程序展示了几大排序算法的步骤。那个时候觉得还挺好玩，后来由于基本上用不到什么排序算法。这些排序算法也慢慢生疏了。最近打算用JS来熟悉一下这个几个算法，并且在前端有一个可视化的排序过程。</p>
+<a id="more"></a>
+<h3 id="算法准备"><a href="#算法准备" class="headerlink" title="算法准备"></a>算法准备</h3><p>后面再说（<strong>快速排序的分支策略</strong>）</p>
+<h3 id="失败的尝试"><a href="#失败的尝试" class="headerlink" title="失败的尝试"></a>失败的尝试</h3><blockquote>
+<p>刚开始想法很简单，在循环里面对DOM进行操作。通过sleep(1000)达到每隔1秒执行一次，这样DOM也有时间去操作顺序。然后代码如下</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">BulbbleSortHtml</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> list = $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>;i&lt;list.length;i++)&#123;</span><br><span class="line">            <span class="built_in">console</span>.group(i);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span>;j&lt;list.length-i;j++)&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(j);</span><br><span class="line">                $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().removeClass(<span class="string">'select'</span>);</span><br><span class="line">                $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j).addClass(<span class="string">'select'</span>);</span><br><span class="line">                $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).addClass(<span class="string">'select'</span>);</span><br><span class="line">                <span class="keyword">if</span>($(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j).height()&gt;$(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).height())&#123;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">var</span> temp = $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j).css(<span class="string">'left'</span>);</span><br><span class="line">                    $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j).css(&#123;</span><br><span class="line">                        left:$(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).css(<span class="string">'left'</span>)+<span class="string">''</span></span><br><span class="line">                    &#125;);</span><br><span class="line"></span><br><span class="line">                    $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).css(&#123;</span><br><span class="line">                        left:temp+<span class="string">''</span></span><br><span class="line">                    &#125;);</span><br><span class="line"></span><br><span class="line">                    $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).insertBefore($(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j));</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>结果却不尽人意，<strong>页面假死</strong>，卡住了，找不到原因所在。</p>
+<h3 id="失败的原因"><a href="#失败的原因" class="headerlink" title="失败的原因"></a>失败的原因</h3><p>浏览器是单线程的，UI 引擎和 JS 引擎互斥，也就是说，在循环运行的过程中， JS 引擎在执行循环操作时，无法调用UI引擎。所以涉及到重新渲染页面的操作不会立即执行，而是会排到任务队列中，等循环结束（JS 引擎空闲）时再执行渲染。所以能看到的效果是，页面假死，到最后突然变成排序结束的样子。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>参考博客：<a href="https://www.jianshu.com/p/491ec9451c6c" target="_blank" rel="noopener">https://www.jianshu.com/p/491ec9451c6c</a></p>
+<p>通过定时器，<code>setTimeout</code>或者<code>setInterval</code></p>
+<p>我是通过<code>setInterval</code>来定时执行循环操作，思想就是将原来的循环分片。然后每次每次分片动作，在定时执行的同事也修改了循环的变量，以此达到循环的目的。</p>
+<p>以冒泡排序为例，修改后(代码写的有点丑)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children();</span><br><span class="line"><span class="keyword">var</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> timer1 = <span class="literal">null</span>;</span><br><span class="line">timer1 = setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().removeClass(<span class="string">'select'</span>);</span><br><span class="line">    $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j).addClass(<span class="string">'select'</span>);</span><br><span class="line">    $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).addClass(<span class="string">'select'</span>);</span><br><span class="line">    <span class="keyword">if</span>($(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j).height()&gt;$(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).height())&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> temp = $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j).css(<span class="string">'left'</span>);</span><br><span class="line">        $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j).css(&#123;</span><br><span class="line">            left:$(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).css(<span class="string">'left'</span>)+<span class="string">''</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).css(&#123;</span><br><span class="line">            left:temp+<span class="string">''</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        $(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j+<span class="number">1</span>).insertBefore($(<span class="string">'.sort'</span>).eq(<span class="number">0</span>).children().eq(j));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 相当于内层的循环变量</span></span><br><span class="line">    j++;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(j == list.length - i)&#123;</span><br><span class="line">        j=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 内层的循环变量</span></span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 当走完循环，退出定时器</span></span><br><span class="line">    <span class="keyword">if</span>(i == list.length)&#123;</span><br><span class="line">        clearInterval(timer1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个实验前前后后大概花了10个小时左右，初期实现冒泡、选择、插入、快速排序。熟悉了一下这几个算法的思想：</p>
+<ul>
+<li><p>冒泡：每循环一次都将最大（小）的移动到了最后。每次都是相邻两个元素比较，整个过程就像水里冒泡一样；</p>
+</li>
+<li><p>选择：和冒泡排序类似。但是比较的策略不一样。选择排序首先将第一个元素作为最大（或最小）的元素，然后循环，找到一个比这个更大（或者更小的）的值，然后替换，依次循环。</p>
+</li>
+<li><p>插入排序：插入排序就相当于无序的扑克牌中一次抽出一张，插入到桌面上已经排好的序的列表中。比上面二者速度都快</p>
+</li>
+<li>快速排序：也是以前最难理解的。其实只要理解分治策略即可，将问题分成小问题去解决。</li>
+</ul>
+<p>然后再可视化的过程中，除了包括上面的那个问题外，还有熟悉了Jquery对DOM的操作：<code>insertBefore</code>和<code>insertAfter</code></p>
+<p>对初中级前端开发者来说，算法可能真正用到的地方很少，但是很重要的是这些算法的思想，我们去解决问题的思想有一些帮助吧。</p>
+<html><br><!--在这里插入内容--><br><p style="text-align:center;margin-top:30px;font-weight:bold;">学无止境</p><br></html>
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/排序算法/" rel="tag"># 排序算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/03/CSS百科/" rel="next" title="CSS百科">
+                <i class="fa fa-chevron-left"></i> CSS百科
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/07/06/JavaScript-实现排序算法可视化手记/"
+           data-title="JavaScript 实现排序算法可视化手记" data-url="http://yoursite.com/2018/07/06/JavaScript-实现排序算法可视化手记/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/61524193096_.pic.jpg"
+                alt="scyuan" />
+            
+              <p class="site-author-name" itemprop="name">scyuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+          <p>95后前端。总结、分享自己的生活和工作</p>
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/scyuan" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:644397334@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法准备"><span class="nav-number">2.</span> <span class="nav-text">算法准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#失败的尝试"><span class="nav-number">3.</span> <span class="nav-text">失败的尝试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#失败的原因"><span class="nav-number">4.</span> <span class="nav-text">失败的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">5.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scyuan</span>
+
+  
+</div>
+
+
+
+
+  
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
