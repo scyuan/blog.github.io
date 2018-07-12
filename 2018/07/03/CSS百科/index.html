@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="一枚程序袁">
 <meta property="og:description" content="前言在实际项目中，会遇到各种各样的css问题，这其中有以前没用过的，或者一些兼容问题等等。以前都是记录在各个地方，不好总结和查漏补缺。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-03T06:18:39.468Z">
+<meta property="og:updated_time" content="2018-07-12T03:21:16.983Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS百科">
 <meta name="twitter:description" content="前言在实际项目中，会遇到各种各样的css问题，这其中有以前没用过的，或者一些兼容问题等等。以前都是记录在各个地方，不好总结和查漏补缺。">
@@ -380,7 +380,70 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.boder</span>&#123;</span><br><span class="line">    <span class="attribute">border</span>:<span class="number">1px</span> solid <span class="built_in">rgba</span>(255,255,255,0);</span><br><span class="line">    <span class="attribute">background-clip</span>:padding-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="3-position：fixed失效问题"><a href="#3-position：fixed失效问题" class="headerlink" title="3. position：fixed失效问题"></a>3. position：fixed失效问题</h3><p>position:fixed是基于视窗布局的，与文档位置没有关系。但是假如父容器有transform属性，position：fixed就会失效</p>
 <p><strong>解决</strong>：将fixed布局的盒子移出含有transform属性的盒子。</p>
-<h3 id="new-date-‘2018-06-07-16-10-25’-在iOS和Android中的兼容问题"><a href="#new-date-‘2018-06-07-16-10-25’-在iOS和Android中的兼容问题" class="headerlink" title="new date(‘2018-06-07 16:10:25’)在iOS和Android中的兼容问题"></a>new date(‘2018-06-07 16:10:25’)在iOS和Android中的兼容问题</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> u = navigator.userAgent, app = navigator.appVersion;</span><br><span class="line"><span class="keyword">var</span> isAndroid = u.indexOf(<span class="string">'Android'</span>) &gt; <span class="number">-1</span> || u.indexOf(<span class="string">'Linux'</span>) &gt; <span class="number">-1</span>; <span class="comment">//g</span></span><br><span class="line"><span class="keyword">var</span> isIOS = !!u.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>); <span class="comment">//ios终端</span></span><br><span class="line"><span class="keyword">if</span> (isAndroid) &#123;</span><br><span class="line">   <span class="comment">//这个是安卓操作系统</span></span><br><span class="line">   data = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.create_time).getTime();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (isIOS) &#123;</span><br><span class="line">   <span class="comment">//这个是ios操作系统</span></span><br><span class="line">   <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.create_time.split(<span class="string">' '</span>).join(<span class="string">'T'</span>)).getTime()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-new-date-‘2018-06-07-16-10-25’-在iOS和Android中的兼容问题"><a href="#4-new-date-‘2018-06-07-16-10-25’-在iOS和Android中的兼容问题" class="headerlink" title="4. new date(‘2018-06-07 16:10:25’)在iOS和Android中的兼容问题"></a>4. new date(‘2018-06-07 16:10:25’)在iOS和Android中的兼容问题</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> u = navigator.userAgent, app = navigator.appVersion;</span><br><span class="line"><span class="keyword">var</span> isAndroid = u.indexOf(<span class="string">'Android'</span>) &gt; <span class="number">-1</span> || u.indexOf(<span class="string">'Linux'</span>) &gt; <span class="number">-1</span>; <span class="comment">//g</span></span><br><span class="line"><span class="keyword">var</span> isIOS = !!u.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>); <span class="comment">//ios终端</span></span><br><span class="line"><span class="keyword">if</span> (isAndroid) &#123;</span><br><span class="line">   <span class="comment">//这个是安卓操作系统</span></span><br><span class="line">   data = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.create_time).getTime();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (isIOS) &#123;</span><br><span class="line">   <span class="comment">//这个是ios操作系统</span></span><br><span class="line">   <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.create_time.split(<span class="string">' '</span>).join(<span class="string">'T'</span>)).getTime()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-外边距叠加问题"><a href="#5-外边距叠加问题" class="headerlink" title="5. 外边距叠加问题"></a>5. 外边距叠加问题</h3><p>两个垂直外边距“相遇”时，将形成一个外边距</p>
+<h3 id="6-linear-gradient、条纹背景"><a href="#6-linear-gradient、条纹背景" class="headerlink" title="6. linear-gradient、条纹背景"></a>6. linear-gradient、条纹背景</h3><p>linear-gradient：线性渐变</p>
+<p>通常用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(to right,red,green)</span><br></pre></td></tr></table></figure>
+<p>linear-gradient的第一个参数是渐变方向，第二和第三参数是渐变颜色</p>
+<p>支持至少两个颜色以上的渐变</p>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red,green)"></div><br></html>
+
+
+<p><strong>那么如何通过linear-gradient设置条纹背景呢？</strong></p>
+<p>在写渐变函数时，还可以在颜色值后面加数值或者百分比</p>
+<p>例如下面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(to right,red 0,green 50%)</span><br></pre></td></tr></table></figure>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 0,green 50%)"></div><br></html>
+
+<p>可以看出有很明显的区别</p>
+<p>可以这样解释<figure class="highlight plain"><figcaption><span>right,red 0,green 50%)```:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">开始是红色，当距离到当前方向轴的50%,转为绿色（完全的转为绿色），中间的距离为渐变过程。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**条纹**</span><br><span class="line"></span><br><span class="line">```background:linear-gradient(to right,red 50%,green 50%)</span><br></pre></td></tr></table></figure></p>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 50%,green 50%)"></div><br></html>
+
+<p>解释：开始是红色，从50%，开始渐变（之前都是红色，如果之前还有其他颜色，则会有渐变过程），然后是绿色，但是绿色也是从50%处开始渐变。所以实际上就没有渐变过程。</p>
+<p>假设绿色不指定50%的话，默认就是从100%开始渲染了。结果就是下面</p>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 50%,green)"></div><br></html>
+
+<p>可以很清楚的看到红色是从50%处开始渐变的</p>
+<p>按照上面的逻辑，可以写出下面的渐变：</p>
+<html><br><!--在这里插入内容--><br><div style="margin-bottom:30px;width:300px;height:200px;background:linear-gradient(to right,red 50%,green 50%, green 75%,red 75%)"></div><br></html>
+
+
+<p><strong>条纹背景</strong></p>
+<p>有了上面的基础后，就可以设置条纹背景了</p>
+<p>上面渐变函数时写在background属性里面的，也可以写在background-image里面，但是不能写在background-color;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(to right,red 50%,green 50%);</span><br><span class="line">background-size:60px 100%;</span><br></pre></td></tr></table></figure>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 50%,green 50%);background-size:60px 100%"></div><br></html>
+
+<p>背景默认都是repeat的，就像设置了一张图片一样</p>
+<p>自己去理解</p>
+<p>设置no-repeat</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(to right,red 50%,green 50%) no-repeat;</span><br><span class="line">background-size:60px 100%;</span><br></pre></td></tr></table></figure>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 50%,green 50%) no-repeat;background-size:60px 100%"></div><br></html>
+
+
+<p><strong>斜 条纹背景怎么设置？</strong></p>
+<p>换一个角度吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(45deg,red 50%,green 50%);</span><br><span class="line">background-size:60px 100%;</span><br></pre></td></tr></table></figure>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(45deg,red 50%,green 50%);background-size:60px 100%"></div><br></html>
+
+<p>不是意料之中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:background:linear-gradient(45deg,red 25%,green 0%,green 50%,red 0,red 75%,green 0);</span><br><span class="line">background-size:60px 100%;</span><br></pre></td></tr></table></figure>
+<p>思路是一个正方形的小方块</p>
+<html><br><!--在这里插入内容--><br><div style="width:60px;height:60px;background:linear-gradient(45deg,red 25%,green 0%,green 50%,red 0,red 75%,green 0);background-size:60px 60px"></div><br></html>
+
+<p>完整如下：</p>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(45deg,red 25%,green 0%,green 50%,red 0,red 75%,green 0);background-size:60px 60px"></div><br></html>
+
+<p><strong>使用repeating-linear-gradient</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:repeating-linear-gradient(45deg,red 0,red 15px,green 15px,green 30px);</span><br></pre></td></tr></table></figure>
+<html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:repeating-linear-gradient(45deg,red 0,red 15px,rgba(0,0,0,0.2) 15px,rgba(0,0,0,0.2) 30px);"></div><br></html>
+
+<h3 id="7-画一个三角形"><a href="#7-画一个三角形" class="headerlink" title="7. 画一个三角形"></a>7. 画一个三角形</h3><blockquote>
+<p> 通过border来画</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">border-left:100px solid black;</span><br><span class="line">border-top:100px solid transparent;</span><br></pre></td></tr></table></figure>
+<html><br><!--在这里插入内容--><br><div style="border-left:100px solid black;border-top:100px solid transparent;"></div><br></html>
 
       
     </div>
@@ -576,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-transform属性引起的抖动"><span class="nav-number">1.1.</span> <span class="nav-text">1. transform属性引起的抖动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-实现透明边框"><span class="nav-number">1.2.</span> <span class="nav-text">2. 实现透明边框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-position：fixed失效问题"><span class="nav-number">1.3.</span> <span class="nav-text">3. position：fixed失效问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-date-‘2018-06-07-16-10-25’-在iOS和Android中的兼容问题"><span class="nav-number">1.4.</span> <span class="nav-text">new date(‘2018-06-07 16:10:25’)在iOS和Android中的兼容问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-transform属性引起的抖动"><span class="nav-number">1.1.</span> <span class="nav-text">1. transform属性引起的抖动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-实现透明边框"><span class="nav-number">1.2.</span> <span class="nav-text">2. 实现透明边框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-position：fixed失效问题"><span class="nav-number">1.3.</span> <span class="nav-text">3. position：fixed失效问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-new-date-‘2018-06-07-16-10-25’-在iOS和Android中的兼容问题"><span class="nav-number">1.4.</span> <span class="nav-text">4. new date(‘2018-06-07 16:10:25’)在iOS和Android中的兼容问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-外边距叠加问题"><span class="nav-number">1.5.</span> <span class="nav-text">5. 外边距叠加问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-linear-gradient、条纹背景"><span class="nav-number">1.6.</span> <span class="nav-text">6. linear-gradient、条纹背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-画一个三角形"><span class="nav-number">1.7.</span> <span class="nav-text">7. 画一个三角形</span></a></li></ol></li></ol></div>
             
 
           </div>
