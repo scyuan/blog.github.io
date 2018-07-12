@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="一枚程序袁">
 <meta property="og:description" content="前言在实际项目中，会遇到各种各样的css问题，这其中有以前没用过的，或者一些兼容问题等等。以前都是记录在各个地方，不好总结和查漏补缺。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-12T03:21:16.983Z">
+<meta property="og:updated_time" content="2018-07-12T05:12:10.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS百科">
 <meta name="twitter:description" content="前言在实际项目中，会遇到各种各样的css问题，这其中有以前没用过的，或者一些兼容问题等等。以前都是记录在各个地方，不好总结和查漏补缺。">
@@ -384,7 +384,7 @@
 <h3 id="5-外边距叠加问题"><a href="#5-外边距叠加问题" class="headerlink" title="5. 外边距叠加问题"></a>5. 外边距叠加问题</h3><p>两个垂直外边距“相遇”时，将形成一个外边距</p>
 <h3 id="6-linear-gradient、条纹背景"><a href="#6-linear-gradient、条纹背景" class="headerlink" title="6. linear-gradient、条纹背景"></a>6. linear-gradient、条纹背景</h3><p>linear-gradient：线性渐变</p>
 <p>通常用法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(to right,red,green)</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span><span class="selector-pseudo">:300px</span>;</span><br><span class="line"><span class="selector-tag">height</span><span class="selector-pseudo">:200px</span>;</span><br><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:linear-gradient(to</span> <span class="selector-tag">right</span>,<span class="selector-tag">red</span>,<span class="selector-tag">green</span>)</span><br></pre></td></tr></table></figure>
 <p>linear-gradient的第一个参数是渐变方向，第二和第三参数是渐变颜色</p>
 <p>支持至少两个颜色以上的渐变</p>
 <html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red,green)"></div><br></html>
@@ -393,11 +393,15 @@
 <p><strong>那么如何通过linear-gradient设置条纹背景呢？</strong></p>
 <p>在写渐变函数时，还可以在颜色值后面加数值或者百分比</p>
 <p>例如下面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(to right,red 0,green 50%)</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span><span class="selector-pseudo">:300px</span>;</span><br><span class="line"><span class="selector-tag">height</span><span class="selector-pseudo">:200px</span>;</span><br><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:linear-gradient(to</span> <span class="selector-tag">right</span>,<span class="selector-tag">red</span> 0,<span class="selector-tag">green</span> 50%)</span><br></pre></td></tr></table></figure>
 <html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 0,green 50%)"></div><br></html>
 
 <p>可以看出有很明显的区别</p>
-<p>可以这样解释<figure class="highlight plain"><figcaption><span>right,red 0,green 50%)```:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">开始是红色，当距离到当前方向轴的50%,转为绿色（完全的转为绿色），中间的距离为渐变过程。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**条纹**</span><br><span class="line"></span><br><span class="line">```background:linear-gradient(to right,red 50%,green 50%)</span><br></pre></td></tr></table></figure></p>
+<p>可以这样解释:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:linear-gradient(to</span> <span class="selector-tag">right</span>,<span class="selector-tag">red</span> 0,<span class="selector-tag">green</span> 50%)</span><br></pre></td></tr></table></figure>
+<p>开始是红色，当距离到当前方向轴的50%,转为绿色（完全的转为绿色），中间的距离为渐变过程。</p>
+<p><strong>条纹</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:linear-gradient(to</span> <span class="selector-tag">right</span>,<span class="selector-tag">red</span> 50%,<span class="selector-tag">green</span> 50%)</span><br></pre></td></tr></table></figure>
 <html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 50%,green 50%)"></div><br></html>
 
 <p>解释：开始是红色，从50%，开始渐变（之前都是红色，如果之前还有其他颜色，则会有渐变过程），然后是绿色，但是绿色也是从50%处开始渐变。所以实际上就没有渐变过程。</p>
@@ -412,23 +416,23 @@
 <p><strong>条纹背景</strong></p>
 <p>有了上面的基础后，就可以设置条纹背景了</p>
 <p>上面渐变函数时写在background属性里面的，也可以写在background-image里面，但是不能写在background-color;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(to right,red 50%,green 50%);</span><br><span class="line">background-size:60px 100%;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span><span class="selector-pseudo">:300px</span>;</span><br><span class="line"><span class="selector-tag">height</span><span class="selector-pseudo">:200px</span>;</span><br><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:linear-gradient(to</span> <span class="selector-tag">right</span>,<span class="selector-tag">red</span> 50%,<span class="selector-tag">green</span> 50%);</span><br><span class="line"><span class="selector-tag">background-size</span><span class="selector-pseudo">:60px</span> 100%;</span><br></pre></td></tr></table></figure>
 <html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 50%,green 50%);background-size:60px 100%"></div><br></html>
 
 <p>背景默认都是repeat的，就像设置了一张图片一样</p>
 <p>自己去理解</p>
 <p>设置no-repeat</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(to right,red 50%,green 50%) no-repeat;</span><br><span class="line">background-size:60px 100%;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span><span class="selector-pseudo">:300px</span>;</span><br><span class="line"><span class="selector-tag">height</span><span class="selector-pseudo">:200px</span>;</span><br><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:linear-gradient(to</span> <span class="selector-tag">right</span>,<span class="selector-tag">red</span> 50%,<span class="selector-tag">green</span> 50%) <span class="selector-tag">no-repeat</span>;</span><br><span class="line"><span class="selector-tag">background-size</span><span class="selector-pseudo">:60px</span> 100%;</span><br></pre></td></tr></table></figure>
 <html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(to right,red 50%,green 50%) no-repeat;background-size:60px 100%"></div><br></html>
 
 
 <p><strong>斜 条纹背景怎么设置？</strong></p>
 <p>换一个角度吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:linear-gradient(45deg,red 50%,green 50%);</span><br><span class="line">background-size:60px 100%;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span><span class="selector-pseudo">:300px</span>;</span><br><span class="line"><span class="selector-tag">height</span><span class="selector-pseudo">:200px</span>;</span><br><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:linear-gradient(45deg</span>,<span class="selector-tag">red</span> 50%,<span class="selector-tag">green</span> 50%);</span><br><span class="line"><span class="selector-tag">background-size</span><span class="selector-pseudo">:60px</span> 100%;</span><br></pre></td></tr></table></figure>
 <html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(45deg,red 50%,green 50%);background-size:60px 100%"></div><br></html>
 
 <p>不是意料之中的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:background:linear-gradient(45deg,red 25%,green 0%,green 50%,red 0,red 75%,green 0);</span><br><span class="line">background-size:60px 100%;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span><span class="selector-pseudo">:300px</span>;</span><br><span class="line"><span class="selector-tag">height</span><span class="selector-pseudo">:200px</span>;</span><br><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:background</span><span class="selector-pseudo">:linear-gradient(45deg</span>,<span class="selector-tag">red</span> 25%,<span class="selector-tag">green</span> 0%,<span class="selector-tag">green</span> 50%,<span class="selector-tag">red</span> 0,<span class="selector-tag">red</span> 75%,<span class="selector-tag">green</span> 0);</span><br><span class="line"><span class="selector-tag">background-size</span><span class="selector-pseudo">:60px</span> 100%;</span><br></pre></td></tr></table></figure>
 <p>思路是一个正方形的小方块</p>
 <html><br><!--在这里插入内容--><br><div style="width:60px;height:60px;background:linear-gradient(45deg,red 25%,green 0%,green 50%,red 0,red 75%,green 0);background-size:60px 60px"></div><br></html>
 
@@ -436,13 +440,13 @@
 <html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:linear-gradient(45deg,red 25%,green 0%,green 50%,red 0,red 75%,green 0);background-size:60px 60px"></div><br></html>
 
 <p><strong>使用repeating-linear-gradient</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br><span class="line">height:200px;</span><br><span class="line">background:repeating-linear-gradient(45deg,red 0,red 15px,green 15px,green 30px);</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span><span class="selector-pseudo">:300px</span>;</span><br><span class="line"><span class="selector-tag">height</span><span class="selector-pseudo">:200px</span>;</span><br><span class="line"><span class="selector-tag">background</span><span class="selector-pseudo">:repeating-linear-gradient(45deg</span>,<span class="selector-tag">red</span> 0,<span class="selector-tag">red</span> 15<span class="selector-tag">px</span>,<span class="selector-tag">green</span> 15<span class="selector-tag">px</span>,<span class="selector-tag">green</span> 30<span class="selector-tag">px</span>);</span><br></pre></td></tr></table></figure>
 <html><br><!--在这里插入内容--><br><div style="width:300px;height:200px;background:repeating-linear-gradient(45deg,red 0,red 15px,rgba(0,0,0,0.2) 15px,rgba(0,0,0,0.2) 30px);"></div><br></html>
 
 <h3 id="7-画一个三角形"><a href="#7-画一个三角形" class="headerlink" title="7. 画一个三角形"></a>7. 画一个三角形</h3><blockquote>
 <p> 通过border来画</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">border-left:100px solid black;</span><br><span class="line">border-top:100px solid transparent;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">border-left</span><span class="selector-pseudo">:100px</span> <span class="selector-tag">solid</span> <span class="selector-tag">black</span>;</span><br><span class="line"><span class="selector-tag">border-top</span><span class="selector-pseudo">:100px</span> <span class="selector-tag">solid</span> <span class="selector-tag">transparent</span>;</span><br></pre></td></tr></table></figure>
 <html><br><!--在这里插入内容--><br><div style="border-left:100px solid black;border-top:100px solid transparent;"></div><br></html>
 
       
