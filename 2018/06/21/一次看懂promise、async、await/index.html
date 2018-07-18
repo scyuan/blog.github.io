@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1fsiwnjw7hxj30ku034mx2.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1fsjobyct28j30k604s3yl.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1fsjos8z9upj30k804pdfw.jpg">
-<meta property="og:updated_time" content="2018-07-18T06:19:00.775Z">
+<meta property="og:updated_time" content="2018-07-18T06:23:10.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次看懂promise、async、await">
 <meta name="twitter:description" content="ES2017引入了async函数，是一种异步解决方案。">
@@ -418,11 +418,11 @@
 <p>运行结果：</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fsivsclm3vj30l201bmwy.jpg" alt=""></p>
 <p>async申明的函数会默认返回一个promise对象。return后面的值即为resolve时的参数（例子中的result的值即为function返回的值），<strong>如果函数内部发生错误，则返回的promise对象的状态为reject</strong>。虽然是上面asyncFn()先执行，但是已经被定义异步函数了，不会影响后续函数的执行。</p>
-<p>==注意==：必须包含return语句，否则resolve会返回一个undefined值</p>
+<p><strong>注意</strong>：必须包含return语句，否则resolve会返回一个undefined值</p>
 <p>也可以如下：</p>
 <ul>
-<li><figure class="highlight plain"><figcaption><span>Promise.reject('has an error')```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- ```return Promise.resolve(&apos;success&apos;)</span><br></pre></td></tr></table></figure>
-</li>
+<li><code>return Promise.reject(&#39;has an error&#39;)</code></li>
+<li><code>return Promise.resolve(&#39;success&#39;)</code></li>
 </ul>
 <h4 id="什么是await"><a href="#什么是await" class="headerlink" title="什么是await"></a>什么是await</h4><p>await（异步等待），被用来等待一个promise，只能出现在async函数内部。任何async函数都会返回一个promise对象，而promise解析的值即为函数返回的值（return的值）。而async函数必须等内部所有await的promise的对象执行完成，才会发生状态改变并返回。</p>
 <blockquote>
