@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="一枚程序袁">
 <meta property="og:description" content="前言在实际项目中，会遇到各种各样的css问题，这其中有以前没用过的，或者一些兼容问题等等。以前都是记录在各个地方，不好总结和查漏补缺。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-23T14:55:18.258Z">
+<meta property="og:updated_time" content="2018-08-25T11:12:01.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS百科">
 <meta name="twitter:description" content="前言在实际项目中，会遇到各种各样的css问题，这其中有以前没用过的，或者一些兼容问题等等。以前都是记录在各个地方，不好总结和查漏补缺。">
@@ -386,10 +386,7 @@
 <h3 id="7-nth-child需要注意的坑"><a href="#7-nth-child需要注意的坑" class="headerlink" title="7.nth-child需要注意的坑"></a>7.nth-child需要注意的坑</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>通过nth-child设置第一个a标签的颜色<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">a</span><span class="selector-pseudo">:nth-child(1)</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>通过nth-child设置第二个a标签的颜色</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">a</span><span class="selector-pseudo">:nth-child(2)</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>发现不生效，为什么？？</p>
-<p>我的理解（错误理解）：div a:nth-child(2) === div下第二个a标签 ❎<br>正确理解：div a:nth-child(2) 属于其父元素的第二个子元素且为a标签的元素  ✅</p>
-<p>所以正确写法<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 因为该a标签是其父元素的第三个子元素 */</span></span><br><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">a</span><span class="selector-pseudo">:nth-child(3)</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">a</span><span class="selector-pseudo">:nth-child(2)</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:blue;</span><br><span class="line">&#125;</span><br><span class="line">`</span><br><span class="line">发现不生效，为什么？？</span><br><span class="line"></span><br><span class="line">我的理解（错误理解）：div a:nth-child(2) === div下第二个a标签 ❎</span><br><span class="line">正确理解：<span class="selector-tag">div</span> <span class="selector-tag">a</span><span class="selector-pseudo">:nth-child(2)</span> 属于其父元素的第二个子元素且为<span class="selector-tag">a</span>标签的元素  ✅</span><br><span class="line"></span><br><span class="line">所以正确写法</span><br><span class="line">```<span class="selector-tag">css</span></span><br><span class="line"><span class="comment">/* 因为该a标签是其父元素的第三个子元素 */</span></span><br><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">a</span><span class="selector-pseudo">:nth-child(3)</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以后注意！！</p>
 
       
@@ -515,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
