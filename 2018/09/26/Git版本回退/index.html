@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript," />
+  <meta name="keywords" content="git," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在某个vue项目中通过a标签跳转，但是跳转需要判断条件，当条件为真时，则跳转，否则不跳转 正常来说点击标签之后是直接跳转的 在vue中，通过@click.prevent来阻止默认事件（即a标签的跳转href），但是无法做到控制跳转，即不管怎样都会阻止默认事件">
-<meta name="keywords" content="JavaScript">
+<meta name="description" content="在日常团队协作开发中应该会经常遇到这种情况，原文链接，这里做总结。">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="阻止a标签的默认事件">
-<meta property="og:url" content="http://yoursite.com/2018/04/04/阻止a标签的默认事件/index.html">
+<meta property="og:title" content="Git版本回退">
+<meta property="og:url" content="http://yoursite.com/2018/09/26/Git版本回退/index.html">
 <meta property="og:site_name" content="一枚程序袁">
-<meta property="og:description" content="在某个vue项目中通过a标签跳转，但是跳转需要判断条件，当条件为真时，则跳转，否则不跳转 正常来说点击标签之后是直接跳转的 在vue中，通过@click.prevent来阻止默认事件（即a标签的跳转href），但是无法做到控制跳转，即不管怎样都会阻止默认事件">
+<meta property="og:description" content="在日常团队协作开发中应该会经常遇到这种情况，原文链接，这里做总结。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-02T01:02:26.809Z">
+<meta property="og:updated_time" content="2018-09-26T15:32:50.328Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="阻止a标签的默认事件">
-<meta name="twitter:description" content="在某个vue项目中通过a标签跳转，但是跳转需要判断条件，当条件为真时，则跳转，否则不跳转 正常来说点击标签之后是直接跳转的 在vue中，通过@click.prevent来阻止默认事件（即a标签的跳转href），但是无法做到控制跳转，即不管怎样都会阻止默认事件">
+<meta name="twitter:title" content="Git版本回退">
+<meta name="twitter:description" content="在日常团队协作开发中应该会经常遇到这种情况，原文链接，这里做总结。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/04/阻止a标签的默认事件/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/26/Git版本回退/"/>
 
 
 
 
 
-  <title>阻止a标签的默认事件 | 一枚程序袁</title>
+  <title>Git版本回退 | 一枚程序袁</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/阻止a标签的默认事件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/Git版本回退/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="scyuan">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">阻止a标签的默认事件</h1>
+          <h1 class="post-title" itemprop="name headline">Git版本回退</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-04T19:04:14+08:00">
-                2018-04-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-26T23:32:12+08:00">
+                2018-09-26
               </time>
             
 
@@ -325,8 +325,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
                   </a>
                 </span>
 
@@ -343,8 +343,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/04/阻止a标签的默认事件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/04/阻止a标签的默认事件/" itemprop="commentCount"></span>
+                <a href="/2018/09/26/Git版本回退/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/09/26/Git版本回退/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,18 +372,41 @@
       
 
       
-        <p>在某个vue项目中通过a标签跳转，但是跳转需要判断条件，当条件为真时，则跳转，否则不跳转</p>
-<p>正常来说点击标签之后是直接跳转的</p>
-<p>在vue中，通过<code>@click.prevent</code>来阻止默认事件（即a标签的跳转href），但是无法做到控制跳转，即不管怎样都会阻止默认事件</p>
+        <blockquote>
+<p>在日常团队协作开发中应该会经常遇到这种情况，<a href="https://blog.csdn.net/sinat_29774479/article/details/78599702" target="_blank" rel="noopener">原文链接</a>，这里做总结。</p>
+</blockquote>
 <a id="more"></a>
-<p>1.<code>&lt;a href=&#39;javascript:void(0)&#39;&gt;&lt;/a&gt;</code>  地址不发生跳转</p>
-<p>2.<code>&lt;a href=&#39;#&#39;&gt;&lt;/a&gt;</code>  地址不发生跳转</p>
-<p>我的做法：</p>
-<p>3.事件处理函数的工作机制中，在给某元素添加事件处理函数后，一旦事件发生，相应JavaScript代码就会执行，所调用的JavaScript代码的返回值被传递给事件处理函数。当我们给a标签添加onclick事件处理函数并点击a触发其后，<br>如果相应JavaScript代码返回true，onclick事件处理函数就会认为这个链接被点击了，同样的若返回false即会认为链接</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> @<span class="attr">click</span>=<span class="string">'click'</span> <span class="attr">href</span>=<span class="string">'www.baidu.com'</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">click</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">1</span>===<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 会跳转href</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>4.preventDefault()阻止事件的默认行为但不支持IE，所以在IE中使用returnValue阻止事件默认行为</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.baidu.com"</span> <span class="attr">id</span>=<span class="string">"test"</span>&gt;</span>  Click Me  <span class="tag">&lt;/<span class="name">a</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"> </span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> test = <span class="built_in">document</span>.getElementById(<span class="string">'test'</span>); </span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">stopDefault</span>(<span class="params"> e </span>)</span></span></span><br><span class="line"><span class="undefined">&#123; </span></span><br><span class="line"><span class="javascript">   <span class="keyword">if</span> ( e &amp;&amp; e.preventDefault )  <span class="comment">//是否可以用preventDefault</span></span></span><br><span class="line"><span class="undefined">      e.preventDefault(); </span></span><br><span class="line"><span class="javascript">     <span class="keyword">else</span> </span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.event.returnValue = <span class="literal">false</span>;  </span></span><br><span class="line"><span class="undefined">&#125; </span></span><br><span class="line"><span class="javascript">test.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span></span></span><br><span class="line"><span class="undefined">&#123; </span></span><br><span class="line"><span class="undefined">     stopDefault(e); </span></span><br><span class="line"><span class="undefined">&#125; </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="版本回退的几种情况"><a href="#版本回退的几种情况" class="headerlink" title="版本回退的几种情况"></a>版本回退的几种情况</h3><ul>
+<li>本地分支回退</li>
+<li>自己的远程分支版本回退</li>
+<li>公共分支（比如master分支）的本本回退</li>
+</ul>
+<h3 id="本地分支回退"><a href="#本地分支回退" class="headerlink" title="本地分支回退"></a>本地分支回退</h3><blockquote>
+<p>本地版本回退很简单</p>
+</blockquote>
+<ol>
+<li>首先查看commit历史</li>
+</ol>
+<p>git reflog</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reflog  #查看所有reset和commit历史</span><br><span class="line">git log     #查看commit历史</span><br></pre></td></tr></table></figure>
+<ol>
+<li>git reset –hard [HEAD]</li>
+</ol>
+<h3 id="自己的远程分支回退"><a href="#自己的远程分支回退" class="headerlink" title="自己的远程分支回退"></a>自己的远程分支回退</h3><ol>
+<li><p>先将本地版本回退</p>
+</li>
+<li><p>git push -f 强制提交</p>
+</li>
+</ol>
+<h3 id="公共分支"><a href="#公共分支" class="headerlink" title="公共分支"></a>公共分支</h3><ol>
+<li>文章介绍的第一种方法 不是很明白  真的可行吗？？？</li>
+<li>第二中 git revert<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD                     //撤销最近一次提交</span><br><span class="line">git revert HEAD~1                   //撤销上上次的提交，注意：数字从0开始</span><br><span class="line">git revert 0ffaacc                  //撤销0ffaacc这次提交</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>git revert 命令意思是撤销某次提交。它会产生一个新的提交，虽然代码回退了，但是版本依然是向前的，所以，当你用revert回退之后，所有人pull之后，他们的代码也自动的回退了。 </p>
+<blockquote>
+<p>revert 是撤销一次提交，所以后面的commit id是你需要回滚到的版本的前一次提交<br>使用revert HEAD是撤销最近的一次提交，如果你最近一次提交是用revert命令产生的，那么你再执行一次，就相当于撤销了上次的撤销操作，换句话说，你连续执行两次revert HEAD命令，就跟没执行是一样的<br>使用revert HEAD~1 表示撤销最近2次提交，这个数字是从0开始的，如果你之前撤销过产生了commi id，那么也会计算在内的。<br>如果使用 revert 撤销的不是最近一次提交，那么一定会有代码冲突，需要你合并代码，合并代码只需要把当前的代码全部去掉，保留之前版本的代码就可以了.</p>
+</blockquote>
 
       
     </div>
@@ -401,7 +424,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/tags/git/" rel="tag"># git</a>
           
         </div>
       
@@ -414,8 +437,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/24/在vue中使用swiper轮播插件/" rel="next" title="在vue中使用swiper轮播插件">
-                <i class="fa fa-chevron-left"></i> 在vue中使用swiper轮播插件
+              <a href="/2018/08/25/人生第一次跳槽/" rel="next" title="人生第一次跳槽">
+                <i class="fa fa-chevron-left"></i> 人生第一次跳槽
               </a>
             
           </div>
@@ -423,10 +446,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/17/如何使用雪碧图/" rel="prev" title="如何使用雪碧图">
-                如何使用雪碧图 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -457,8 +476,8 @@
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2018/04/04/阻止a标签的默认事件/"
-           data-title="阻止a标签的默认事件" data-url="http://yoursite.com/2018/04/04/阻止a标签的默认事件/">
+      <div class="ds-thread" data-thread-key="2018/09/26/Git版本回退/"
+           data-title="Git版本回退" data-url="http://yoursite.com/2018/09/26/Git版本回退/">
       </div>
     </div>
 
@@ -485,8 +504,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -566,6 +594,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本回退的几种情况"><span class="nav-number">1.</span> <span class="nav-text">版本回退的几种情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地分支回退"><span class="nav-number">2.</span> <span class="nav-text">本地分支回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自己的远程分支回退"><span class="nav-number">3.</span> <span class="nav-text">自己的远程分支回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#公共分支"><span class="nav-number">4.</span> <span class="nav-text">公共分支</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
